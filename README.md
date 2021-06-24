@@ -1,6 +1,6 @@
 ## Tech-With-Tim CDN
 
-<!--[![codecov](https://codecov.io/gh/Ibezio/CDN/branch/Refactoring/graph/badge.svg?token=24UL228OKT)](https://codecov.io/gh/Ibezio/CDN)-->
+[![codecov](https://codecov.io/gh/Tech-With-Tim/cdn/branch/master/graph/badge.svg?token=YKpXOrUO80)](https://codecov.io/gh/Tech-With-Tim/cdn)
 
 app.env and test.env should look like this
 (test.env is required for running tests)
