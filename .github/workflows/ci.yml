@@ -1,0 +1,65 @@
+name: ci-test
+
+on:
+  push:
+    branches: [ Refactoring ]
+  pull_request:
+    branches: [ Refactoring ]
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:12
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: mysecret
+          POSTGRES_DB: cdn
+        ports:
+          - 5432:5432
+          # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+
+      - name: Migrate
+        run: go run main.go migrate_up
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: mysecret
+          DB_NAME: cdn
+          DB_HOST: localhost
+          DB_PORT: 5432
+          SECRET_KEY: mysecret
+          MAX_FILE_SIZE: 30
+
+      - name: test
+        run: go test -v -coverprofile=coverage.txt -covermode=atomic ./...
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: mysecret
+          DB_NAME: cdn
+          DB_HOST: localhost
+          DB_PORT: 5432
+          SECRET_KEY: mysecret
+          MAX_FILE_SIZE: 30
+      #- name: Upload to CodeCov
+       # run: bash <(curl -s https://codecov.io/bash)
+        #env:
+         # CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

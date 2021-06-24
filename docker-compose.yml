@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=cdn
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - DB_NAME=cdn
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - SECRET_KEY=mysecret # make sure to keep the same secret key in the jwt issuer
+      - MAX_FILE_SIZE=30
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
