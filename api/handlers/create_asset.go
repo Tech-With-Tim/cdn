@@ -57,8 +57,7 @@ func storeAsset(mimetype string,
 			utils.JSON(w, http.StatusConflict, resp)
 			return
 		}
-		resp = map[string]interface{}{"error": "Something unexpected occurred.",
-			"message": err.Error()}
+		resp = map[string]interface{}{"error": "Something unexpected occurred."}
 		utils.JSON(w, http.StatusInternalServerError, resp)
 		log.Println(err.Error())
 		return
@@ -102,8 +101,7 @@ func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 			fileBytes, er := ioutil.ReadAll(upload)
 			if er != nil {
 				log.Println(er.Error())
-				resp = map[string]interface{}{"error": "Something unexpected occurred.",
-					"message": er.Error()}
+				resp = map[string]interface{}{"error": "Something unexpected occurred."}
 				utils.JSON(w, http.StatusInternalServerError, resp)
 				return er
 			}

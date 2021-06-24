@@ -14,7 +14,6 @@ const errorstring string = "The server could not verify that you are authorized 
 	"You either supplied the wrong credentials (e.g. a bad password), " +
 	"or your browser doesn't understand how to supply the credentials required."
 
-
 func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +49,6 @@ func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 			//fmt.Println(sub)
 			if err != nil {
 				resp["error"] = "something unexpected occurred"
-				resp["message"] = err.Error()
 				utils.JSON(w, http.StatusInternalServerError, resp)
 				log.Println(err.Error())
 				return

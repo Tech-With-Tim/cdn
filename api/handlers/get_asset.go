@@ -32,8 +32,7 @@ func GetAsset(store *db.Store) http.HandlerFunc {
 		w.Header().Set("Content-Type", fileRow.Mimetype)
 		_, err = w.Write(fileRow.Data)
 		if err != nil {
-			resp = map[string]interface{}{"error": "Something Unexpected Occurred.",
-				"message": err.Error()}
+			resp = map[string]interface{}{"error": "Something Unexpected Occurred."}
 			utils.JSON(w, http.StatusInternalServerError, resp)
 			log.Println(err.Error())
 			return
