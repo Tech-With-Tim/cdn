@@ -46,7 +46,7 @@ func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 
 			claims, _ := token.Claims.(jwt.MapClaims)
 
-			sub, err := strconv.Atoi(claims["sub"].(string))
+			uid, err := strconv.Atoi(claims["uid"].(string))
 			//fmt.Println(sub)
 			if err != nil {
 				resp["error"] = "something unexpected occurred"
@@ -56,7 +56,7 @@ func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 				return
 			}
 
-			ctx := context.WithValue(r.Context(), "sub", sub) // adding the user ID to the context
+			ctx := context.WithValue(r.Context(), "uid", uid) // adding the user ID to the context
 			next.ServeHTTP(w, r.WithContext(ctx))
 
 		})

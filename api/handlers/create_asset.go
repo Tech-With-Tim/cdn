@@ -121,7 +121,7 @@ func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 			mimetype := handler.Header.Get("Content-Type")
 			//File Extension
 			fileExt, _ = mime.ExtensionsByType(mimetype)
-			userId := ctx.Value("sub").(int)
+			userId := ctx.Value("uid").(int)
 			urlPath = getUrlPath(r.FormValue("url_path"), fileExt)
 			//Storing asset in database
 			assetId, err = storeAsset(mimetype, fileName, <-fileData,

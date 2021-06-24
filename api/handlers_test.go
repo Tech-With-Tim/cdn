@@ -41,7 +41,7 @@ func checkResponseCode(t *testing.T, expected, actual int) {
 func createAuthToken(exp int64) (string, error) {
 	claims := jwt.MapClaims{}
 
-	claims["sub"] = fmt.Sprintf("%v",
+	claims["uid"] = fmt.Sprintf("%v",
 		utils.RandomInt(328604827967815690,
 			735376244656308274))
 	claims["exp"] = exp              //time.Now().Add(time.Hour * 24).Unix()
