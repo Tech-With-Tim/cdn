@@ -25,7 +25,10 @@ func LoadConfig(path string, name string) (config Config, err error) {
 
 	err = viper.ReadInConfig()
 	if err != nil {
-		env.Parse(&config)
+		err = env.Parse(&config)
+		if err != nil {
+			return
+		}
 		if config.SecretKey != "" {
 			if config.MaxFileSize != 0 {
 				err = nil

@@ -38,7 +38,6 @@ func GetAsset(store *db.Store) http.HandlerFunc {
 			log.Println(err.Error())
 			return
 		}
-		return
 
 	}
 }

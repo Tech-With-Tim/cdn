@@ -14,10 +14,12 @@ const errorstring string = "The server could not verify that you are authorized 
 	"You either supplied the wrong credentials (e.g. a bad password), " +
 	"or your browser doesn't understand how to supply the credentials required."
 
+type contextSub string
+
 func AuthJwtWrap(SecretKey, issuer string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
+			var substr contextSub = "sub"
 			var resp = map[string]interface{}{"error": "unauthorized", "message": "missing authorization token"}
 			var header = r.Header.Get("Authorization")
 			header = strings.TrimSpace(header)
@@ -61,7 +63,8 @@ func AuthJwtWrap(SecretKey, issuer string) func(next http.Handler) http.Handler 
 				log.Println(err.Error())
 				return
 			}
-			ctx := context.WithValue(r.Context(), "sub", sub) // adding the user ID to the context
+
+			ctx := context.WithValue(r.Context(), substr, sub) // adding the user ID to the context
 			next.ServeHTTP(w, r.WithContext(ctx))
 
 		})

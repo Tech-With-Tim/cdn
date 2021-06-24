@@ -19,7 +19,9 @@ func TestMain(m *testing.M) {
 	}
 	dbSource := utils.GetDbUri(config)
 	testDB, err = sql.Open("postgres", dbSource)
-
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
 	testQueries = New(testDB)
 	os.Exit(m.Run())
 }
