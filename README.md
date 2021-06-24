@@ -1,6 +1,7 @@
 ## Tech-With-Tim CDN
 
 [![codecov](https://codecov.io/gh/Tech-With-Tim/cdn/branch/master/graph/badge.svg?token=YKpXOrUO80)](https://codecov.io/gh/Tech-With-Tim/cdn)
+[![Lint & Test](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml/badge.svg)](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml)
 
 app.env and test.env should look like this
 (test.env is required for running tests)
