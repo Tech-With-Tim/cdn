@@ -13,7 +13,6 @@ DB_HOST=localhost
 DB_PORT=5432
 SECRET_KEY=secret
 MAX_FILE_SIZE=30
-ISSUER=issuer #issuer of jwt token used to check orgin
 ```
 to create postgres container `make postgres`
 to create db `make createdb`

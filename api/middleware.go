@@ -15,7 +15,7 @@ const errorstring string = "The server could not verify that you are authorized 
 	"or your browser doesn't understand how to supply the credentials required."
 
 
-func AuthJwtWrap(SecretKey, issuer string) func(next http.Handler) http.Handler {
+func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			var resp = map[string]interface{}{"error": "unauthorized", "message": "missing authorization token"}
@@ -46,12 +46,6 @@ func AuthJwtWrap(SecretKey, issuer string) func(next http.Handler) http.Handler 
 
 			claims, _ := token.Claims.(jwt.MapClaims)
 
-			if claims["iss"].(string) != issuer { // "Ibezio Development" {
-				resp["error"] = "unauthorized"
-				resp["message"] = "jwt token issuer is invalid. try regenerating the token"
-				utils.JSON(w, http.StatusUnauthorized, resp)
-				return
-			}
 			sub, err := strconv.Atoi(claims["sub"].(string))
 			//fmt.Println(sub)
 			if err != nil {

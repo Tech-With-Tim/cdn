@@ -44,8 +44,6 @@ func createAuthToken(exp int64) (string, error) {
 	claims["sub"] = fmt.Sprintf("%v",
 		utils.RandomInt(328604827967815690,
 			735376244656308274))
-
-	claims["iss"] = config.JwtIssuer // "Ibezio Development" // TODO: Change this to config.issuer As this cdn is all purpose
 	claims["exp"] = exp              //time.Now().Add(time.Hour * 24).Unix()
 	claims["IssuedAt"] = time.Now().Unix()
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), claims)

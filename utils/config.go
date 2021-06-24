@@ -14,7 +14,6 @@ type Config struct {
 	DbPort           int    `mapstructure:"DB_PORT" env:"DB_PORT"`
 	SecretKey        string `mapstructure:"SECRET_KEY" env:"SECRET_KEY"`
 	MaxFileSize      int64  `mapstructure:"MAX_FILE_SIZE" env:"MAX_FILE_SIZE"`
-	JwtIssuer        string `mapstructure:"ISSUER" env:"ISSUER"`
 }
 
 func LoadConfig(path string, name string) (config Config, err error) {

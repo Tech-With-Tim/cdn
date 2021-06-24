@@ -19,7 +19,7 @@ func MainRouter(r *chi.Mux, store *db.Store, config utils.Config) {
 
 	//Private Routes
 	r.Group(func(r chi.Router) {
-		r.Use(AuthJwtWrap(config.SecretKey, config.JwtIssuer))
+		r.Use(AuthJwtWrap(config.SecretKey))
 		r.Post("/manage", handlers.CreateAsset(store, config.MaxFileSize))
 		r.Get("/testing", handlers.HelloWorld())
 	})
