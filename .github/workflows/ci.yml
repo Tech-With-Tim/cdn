@@ -7,6 +7,15 @@ on:
     branches: '**'
 
 jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
 
   test:
     name: Test
@@ -59,7 +68,7 @@ jobs:
           DB_PORT: 5432
           SECRET_KEY: mysecret
           MAX_FILE_SIZE: 30
-      #- name: Upload to CodeCov
-       # run: bash <(curl -s https://codecov.io/bash)
-        #env:
-         # CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload to CodeCov
+        run: bash <(curl -s https://codecov.io/bash)
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
