@@ -15,7 +15,6 @@ import (
 var app = cli.NewApp()
 
 func main() {
-
 	//Export Env Variables If exist
 	//err := utils.ExportVariables()
 	config, err := utils.LoadConfig("./", "app")
@@ -30,6 +29,7 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
 func loadconfig(testconf bool) (conf utils.Config, err error) {
 	if testconf {
 		conf, err = utils.LoadConfig("./", "test")
