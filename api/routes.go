@@ -14,7 +14,7 @@ func MainRouter(r *chi.Mux, store *db.Store, config utils.Config) {
 	r.Group(func(r chi.Router) {
 		r.Get("/", handlers.HelloWorld())
 		r.Get("/{AssetUrl}", handlers.GetAsset(store))
-		//r.Get("/manage/{path}", FetchAssetDetails(db))
+		r.Get("/manage/{path}", handlers.FetchAssetDetails(store))
 	})
 
 	//Private Routes

@@ -44,7 +44,7 @@ func createAuthToken(exp int64) (string, error) {
 	claims["uid"] = fmt.Sprintf("%v",
 		utils.RandomInt(328604827967815690,
 			735376244656308274))
-	claims["exp"] = exp              //time.Now().Add(time.Hour * 24).Unix()
+	claims["exp"] = exp //time.Now().Add(time.Hour * 24).Unix()
 	claims["IssuedAt"] = time.Now().Unix()
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), claims)
 	return token.SignedString([]byte(config.SecretKey))
@@ -147,5 +147,20 @@ func TestCreateAsset(t *testing.T) {
 		receivedFileData, err = ioutil.ReadAll(fileRes.Body)
 		require.NoError(t, err)
 		require.Equal(t, originalFileData, receivedFileData)
+
+		// endpoint /manage/{url}
+		// check if the info is correct
+		fileReq, err = http.NewRequest("GET", "/manage/"+AssetDetails.UrlPath, nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusOK, fileRes.Code)
+		receivedFileData, err = ioutil.ReadAll(fileRes.Body)
+		require.NoError(t, err)
+
+		manageURLResponse := &db.GetAssetDetailsByUrlRow{}
+		err = json.Unmarshal(receivedFileData, manageURLResponse)
+		require.NoError(t, err)
+		require.Equal(t, assetId, int(manageURLResponse.ID))
+		require.Equal(t, assetName, manageURLResponse.Name)
 	}
 }
