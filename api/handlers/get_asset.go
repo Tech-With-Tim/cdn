@@ -20,7 +20,7 @@ func GetAsset(store *db.Store) http.HandlerFunc {
 		if err != nil {
 			if err == sql.ErrNoRows {
 				resp = map[string]interface{}{"error": "Not Found",
-					"message": "No asset found with that url path."}
+					"message": "No asset found with that url_path."}
 				utils.JSON(w, http.StatusNotFound, resp)
 				return
 			}
