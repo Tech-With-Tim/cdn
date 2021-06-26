@@ -6,19 +6,47 @@ on:
     branches: ["main"]
     types: ["completed"]
 
-
 jobs:
   build:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     name: Build & Publish
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2 # Checking out the repo
+      - name: Checkout Repo
+        uses: actions/checkout@v2 # Checking out the repo
 
       - name: Build and Publish Docker image
         uses: VaultVulp/gp-docker-action@1.1.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
           image-name: cdn # Provide Docker image name
-          image-tag: latest # Provide Docker image tag
+          image-tag: ${{ github.sha }} # Provide Docker image tag
           dockerfile: Dockerfile
+
+  deploy:
+    name: Deploy on Kubernetes cluster
+    runs-on: ubuntu-20.04
+    needs: build
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          repository: Tech-With-Tim/k8s
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Deploy to Kubernetes
+        uses: fjogeleit/yaml-update-action@master
+        with:
+          valueFile: "cdn/deployment.yml"
+          propertyPath: "spec.template.spec.containers[0].image"
+          value: "ghcr.io/Tech-With-Tim/cdn:${{ github.sha }}"
+
+      - name: Push Changes to kubernetes repo
+        run: |
+          git config user.name "mohamed040406"
+          git config user.email "mohamed040406@users.noreply.github.com"
+          git add .
+          git commit -m "Redeploy CDN"
+          git push
