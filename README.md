@@ -7,8 +7,8 @@
 [![Status](https://img.shields.io/website?url=https%3A%2F%2Fcdn.twtcodejam.net)](https://cdn.dev.twtcodejam.net)
 [![codecov](https://codecov.io/gh/Tech-With-Tim/cdn/branch/main/graph/badge.svg?token=YKpXOrUO80)](https://codecov.io/gh/Tech-With-Tim/cdn)
 [![Lint & Test](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml/badge.svg)](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml)
-[![GitHub Issues](https://img.shields.io/github/issues/Tech-With-Tim/API.svg)](https://github.com/Tech-With-Tim/API/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Tech-With-Tim/API.svg)](https://github.com/Tech-With-Tim/API/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/Tech-With-Tim/CDN.svg)](https://github.com/Tech-With-Tim/CDN/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Tech-With-Tim/CDN.svg)](https://github.com/Tech-With-Tim/CDN/pulls)
 [![Licence](https://img.shields.io/badge/licence-MIT-blue.svg)](/LICENCE)
 [![Discord](https://discord.com/api/guilds/501090983539245061/widget.png?style=shield)](https://discord.gg/twt)
 
