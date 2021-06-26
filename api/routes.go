@@ -1,9 +1,9 @@
 package api
 
 import (
-	"github.com/Ibezio/cdn/api/handlers"
-	db "github.com/Ibezio/cdn/db/sqlc"
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/api/handlers"
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/go-chi/chi/v5"
 )
 

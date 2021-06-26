@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"

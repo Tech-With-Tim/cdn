@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"fmt"
-	db "github.com/Ibezio/cdn/db/sqlc"
-	"github.com/Ibezio/cdn/utils"
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/omeid/pgerror"
 	"golang.org/x/sync/errgroup"
 	"io/ioutil"

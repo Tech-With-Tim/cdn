@@ -1,4 +1,4 @@
-module github.com/Ibezio/cdn
+module github.com/Tech-With-Tim/cdn
 
 go 1.16
 

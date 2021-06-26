@@ -8,8 +8,8 @@ import (
 
 	"database/sql"
 	"fmt"
-	db "github.com/Ibezio/cdn/db/sqlc"
-	"github.com/Ibezio/cdn/utils"
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"log"
 	"net/http"
 
