@@ -1,0 +1,23 @@
+name: Build & Publish
+
+on:
+  workflows: ["Lint & Test"]
+  branches: ["main"]
+  types: ["completed"]
+
+
+jobs:
+  build:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    name: Build & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 # Checking out the repo
+
+      - name: Build and Publish Docker image
+        uses: VaultVulp/gp-docker-action@1.1.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Provide GITHUB_TOKEN to login into the GitHub Packages
+          image-name: cdn # Provide Docker image name
+          image-tag: latest # Provide Docker image tag
+          dockerfile: Dockerfile
