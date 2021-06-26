@@ -20,12 +20,12 @@ func FetchAssetDetails(store *db.Store) http.HandlerFunc {
 		// }
 		if err != nil {
 			if err == sql.ErrNoRows {
-				resp = map[string]interface{}{"error": "Not Found",
-					"message": "No asset found with that url path."}
+				resp = map[string]interface{}{"error": "not found",
+					"message": "no asset found with that url path."}
 				utils.JSON(w, http.StatusNotFound, resp)
 				return
 			}
-			resp = map[string]interface{}{"error": "Something Unexpected Occurred."}
+			resp = map[string]interface{}{"error": "something Unexpected Occurred."}
 			utils.JSON(w, http.StatusInternalServerError, resp)
 			log.Println(err.Error())
 			return
