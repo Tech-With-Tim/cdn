@@ -4,7 +4,7 @@
 
 <div>
   
-[![Status](https://img.shields.io/website?url=https%3A%2F%2Fcdn.twtcodejam.net)](https://cdn.dev.twtcodejam.net)
+![Status](https://img.shields.io/uptimerobot/status/m788529933-eaad92775b9eeb9753c9aac4)  
 [![codecov](https://codecov.io/gh/Tech-With-Tim/cdn/branch/main/graph/badge.svg?token=YKpXOrUO80)](https://codecov.io/gh/Tech-With-Tim/cdn)
 [![Lint & Test](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml/badge.svg)](https://github.com/Tech-With-Tim/cdn/actions/workflows/lint-test.yml)
 [![GitHub Issues](https://img.shields.io/github/issues/Tech-With-Tim/CDN.svg)](https://github.com/Tech-With-Tim/CDN/issues)
