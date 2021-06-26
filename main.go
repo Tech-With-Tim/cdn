@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/Ibezio/cdn/api"
-	"github.com/Ibezio/cdn/server"
+	"github.com/Tech-With-Tim/cdn/api"
+	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
 	"log"
 	// _ "net/http/pprof"  // only in use when profiling
 	"os"
 
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/urfave/cli/v2"
 )
 

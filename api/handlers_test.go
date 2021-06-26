@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	db "github.com/Ibezio/cdn/db/sqlc"
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/require"
 )

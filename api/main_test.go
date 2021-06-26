@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/Ibezio/cdn/server"
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/server"
+	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/go-chi/chi/v5"
 	"log"
 	"os"

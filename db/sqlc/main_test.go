@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"github.com/Ibezio/cdn/utils"
+	"github.com/Tech-With-Tim/cdn/utils"
 	_ "github.com/lib/pq"
 	"log"
 	"os"
