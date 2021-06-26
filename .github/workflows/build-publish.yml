@@ -40,8 +40,8 @@ jobs:
         uses: fjogeleit/yaml-update-action@master
         with:
           valueFile: "cdn/deployment.yml"
-          propertyPath: "spec.template.spec.containers[0].image"
-          value: "ghcr.io/Tech-With-Tim/cdn:${{ github.sha }}"
+          propertyPath: "spec.template.spec.containers.0.image"
+          value: "docker.pkg.github.com/tech-with-tim/cdn/cdn:${{ github.sha }}"
 
       - name: Push Changes to kubernetes repo
         run: |
