@@ -6,6 +6,7 @@ import (
 	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/omeid/pgerror"
 	"golang.org/x/sync/errgroup"
+	"html"
 	"io/ioutil"
 	"log"
 	"mime"
@@ -120,7 +121,7 @@ func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 			//File Extension
 			fileExt, _ = mime.ExtensionsByType(mimetype)
 			userId := ctx.Value("uid").(int)
-			urlPath = getUrlPath(r.FormValue("url_path"), fileExt)
+			urlPath = getUrlPath(html.EscapeString(r.FormValue("url_path")), fileExt)
 			//Storing asset in database
 			assetId, err = storeAsset(mimetype, fileName, <-fileData,
 				assetName, urlPath, userId, store, w, r)
