@@ -117,27 +117,36 @@ func (q *Queries) GetFile(ctx context.Context, urlPath string) (GetFileRow, erro
 }
 
 const listAssetByCreator = `-- name: ListAssetByCreator :many
-SELECT id, name, url_path
-    FROM assets
-    WHERE creator_id = $1
+SELECT id, name, url_path, file_id, creator_id
+FROM assets
+WHERE creator_id = $1
+ORDER BY id
+LIMIT $2 -- PageSize
+    OFFSET $3
 `
 
-type ListAssetByCreatorRow struct {
-	ID      int64  `json:"id"`
-	Name    string `json:"name"`
-	UrlPath string `json:"urlPath"`
+type ListAssetByCreatorParams struct {
+	CreatorID int64 `json:"creatorID"`
+	Limit     int32 `json:"limit"`
+	Offset    int32 `json:"offset"`
 }
 
-func (q *Queries) ListAssetByCreator(ctx context.Context, creatorID int64) ([]ListAssetByCreatorRow, error) {
-	rows, err := q.db.QueryContext(ctx, listAssetByCreator, creatorID)
+func (q *Queries) ListAssetByCreator(ctx context.Context, arg ListAssetByCreatorParams) ([]Assets, error) {
+	rows, err := q.db.QueryContext(ctx, listAssetByCreator, arg.CreatorID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []ListAssetByCreatorRow
+	var items []Assets
 	for rows.Next() {
-		var i ListAssetByCreatorRow
-		if err := rows.Scan(&i.ID, &i.Name, &i.UrlPath); err != nil {
+		var i Assets
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.UrlPath,
+			&i.FileID,
+			&i.CreatorID,
+		); err != nil {
 			return nil, err
 		}
 		items = append(items, i)

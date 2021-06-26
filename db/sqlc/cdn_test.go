@@ -108,16 +108,32 @@ func TestQueries_GetFile(t *testing.T) {
 
 func TestQueries_ListAssetByCreator(t *testing.T) {
 	generatedAsset, assetID := createRandomAsset(t)
-	ExpectedRow := ListAssetByCreatorRow{
-		ID:      assetID,
-		Name:    generatedAsset.Name_2,
-		UrlPath: generatedAsset.UrlPath,
+	//ExpectedRow := ListAssetByCreatorRow{
+	//	ID:      assetID,
+	//	Name:    generatedAsset.Name_2,
+	//	UrlPath: generatedAsset.UrlPath,
+	//}
+	var ExpectedRow []Assets
+	ExpectedRow = append(ExpectedRow, Assets{
+		ID:        assetID,
+		Name:      generatedAsset.Name_2,
+		UrlPath:   generatedAsset.UrlPath,
+		FileID:    0,
+		CreatorID: generatedAsset.CreatorID,
+	})
+	var pageSize int32 = 5
+	var pageNumber int32 = 1
+	args := ListAssetByCreatorParams{
+		CreatorID: generatedAsset.CreatorID,
+		Limit:     5,
+		Offset:    (pageNumber - 1) * pageSize,
 	}
-	assetLists, err := testQueries.ListAssetByCreator(context.Background(), generatedAsset.CreatorID)
+	assetLists, err := testQueries.ListAssetByCreator(context.Background(), args)
 	require.NoError(t, err)
 	require.NotEmpty(t, assetLists)
-	require.Contains(t, assetLists, ExpectedRow)
-
+	returnedAsset := assetLists[0]
+	ExpectedRow[0].FileID = returnedAsset.FileID
+	require.Equal(t, ExpectedRow, assetLists)
 	cleanup(t, generatedAsset)
 }
 

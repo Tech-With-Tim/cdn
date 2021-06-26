@@ -33,6 +33,9 @@ DELETE
     WHERE id = (SELECT file_id FROM assets WHERE url_path = $1 AND creator_id = $2);
 
 -- name: ListAssetByCreator :many
-SELECT id, name, url_path
-    FROM assets
-    WHERE creator_id = $1;
+SELECT *
+FROM assets
+WHERE creator_id = $1
+ORDER BY id
+LIMIT $2 -- PageSize
+    OFFSET $3; -- ((Pagenumber - 1) * PageSize)
