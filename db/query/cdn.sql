@@ -18,7 +18,7 @@ SELECT data, mimetype
     );
 
 -- name: GetAssetDetailsByUrl :one
-SELECT id, name
+SELECT id, name, creator_id
     FROM assets
     WHERE url_path = $1;
 

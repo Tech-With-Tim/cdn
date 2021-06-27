@@ -77,20 +77,21 @@ func (q *Queries) GetAssetDetailsById(ctx context.Context, id int64) (GetAssetDe
 }
 
 const getAssetDetailsByUrl = `-- name: GetAssetDetailsByUrl :one
-SELECT id, name
+SELECT id, name, creator_id
     FROM assets
     WHERE url_path = $1
 `
 
 type GetAssetDetailsByUrlRow struct {
-	ID   int64  `json:"id"`
-	Name string `json:"name"`
+	ID        int64  `json:"id"`
+	Name      string `json:"name"`
+	CreatorID int64  `json:"creatorID"`
 }
 
 func (q *Queries) GetAssetDetailsByUrl(ctx context.Context, urlPath string) (GetAssetDetailsByUrlRow, error) {
 	row := q.db.QueryRowContext(ctx, getAssetDetailsByUrl, urlPath)
 	var i GetAssetDetailsByUrlRow
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(&i.ID, &i.Name, &i.CreatorID)
 	return i, err
 }
 

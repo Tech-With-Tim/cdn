@@ -18,6 +18,7 @@ func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 		// type GetAssetDetailsByUrlRow struct {
 		//	ID   int64  `json:"id"`
 		//	Name string `json:"name"`
+		//  CreatorID int64  `json:"creatorID"`
 		// }
 		if err != nil {
 			if err == sql.ErrNoRows {
