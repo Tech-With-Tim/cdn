@@ -162,7 +162,7 @@ func TestCreateAsset(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, assetId, int(manageURLResponse.ID))
 		require.Equal(t, assetName, manageURLResponse.Name)
-		// require.Equal(t, AssetDetails.CreatorID, manageURLResponse.CreatorID)
+		require.Equal(t, AssetDetails.CreatorID, manageURLResponse.CreatorID)
 
 		// not found
 		// um, hopefully there isn't a url named * in the test db.
