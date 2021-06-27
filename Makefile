@@ -2,6 +2,9 @@ include app.env
 postgres:
 	docker run --name postgres12 -p 5432:5432 -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d postgres:12-alpine
 
+redis:
+	docker run --name redis3 -p 6379:6379 -d redis:6.2-alpine3.13 redis-server --requirepass ${REDIS_PASS}
+
 createdb:
 	docker exec -it postgres12 createdb --username=${POSTGRES_USER} --owner=${POSTGRES_USER} ${DB_NAME}
 
@@ -31,4 +34,4 @@ test:
 # droptestdb:
 # 	docker exec -it postgres12 dropdb -U sponge twtTest
 
-.PHONY: postgres createdb dropdb migrate_up sqlc_generate test # createtestdb droptestdb
+.PHONY: postgres createdb dropdb migrate_up sqlc_generate test redis # createtestdb droptestdb

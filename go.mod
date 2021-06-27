@@ -8,6 +8,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi/v5 v5.0.3
 	github.com/go-chi/cors v1.2.0
+	github.com/go-redis/redis/v7 v7.4.0
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/lib/pq v1.10.1
 	github.com/omeid/pgerror v0.0.0-20201018020948-42c66c4d27d4
@@ -17,5 +18,4 @@ require (
 	golang.org/x/net v0.0.0-20210505024714-0287a6fb4125 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 )
