@@ -13,6 +13,9 @@ type Config struct {
 	DbHost           string `mapstructure:"DB_HOST" env:"DB_HOST"`
 	DbPort           int    `mapstructure:"DB_PORT" env:"DB_PORT"`
 	SecretKey        string `mapstructure:"SECRET_KEY" env:"SECRET_KEY"`
+	RedisPass        string `mapstructure:"REDIS_PASS" env:"REDIS_PASS"`
+	RedisHost        string `mapstructure:"REDIS_HOST" env:"REDIS_HOST"`
+	RedisDb          int    `mapstructure:"REDIS_DB"   env:"REDIS_DB"`
 	MaxFileSize      int64  `mapstructure:"MAX_FILE_SIZE" env:"MAX_FILE_SIZE"`
 }
 

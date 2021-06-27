@@ -39,6 +39,18 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+      redis:
+        # Docker Hub image
+        image: redis
+        ports:
+          - 6379:6379
+          # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
 
@@ -68,6 +80,8 @@ jobs:
           DB_PORT: 5432
           SECRET_KEY: mysecret
           MAX_FILE_SIZE: 30
+          REDIS_HOST: localhost:6379
+          REDIS_DB: 0
       - name: Upload to CodeCov
         run: bash <(curl -s https://codecov.io/bash)
         env:
