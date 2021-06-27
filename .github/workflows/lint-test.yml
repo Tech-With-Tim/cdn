@@ -50,8 +50,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          --requirepass secret
-
 
     steps:
       - uses: actions/checkout@v2
@@ -82,7 +80,6 @@ jobs:
           DB_PORT: 5432
           SECRET_KEY: mysecret
           MAX_FILE_SIZE: 30
-          REDIS_PASS: secret
           REDIS_HOST: localhost:6379
           REDIS_DB: 0
       - name: Upload to CodeCov

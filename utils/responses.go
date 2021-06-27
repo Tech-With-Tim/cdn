@@ -11,6 +11,9 @@ func JSON(w http.ResponseWriter, statusCode int, data interface{}) {
 	err := json.NewEncoder(w).Encode(data)
 	if err != nil {
 		w.WriteHeader(500)
-		json.NewEncoder(w).Encode(map[string]interface{}{"error": "something unexpected occurred."})
+		er := json.NewEncoder(w).Encode(map[string]interface{}{"error": "something unexpected occurred."})
+		if er != nil {
+			return
+		}
 	}
 }
