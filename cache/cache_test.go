@@ -30,6 +30,14 @@ func createRandomAsset(t *testing.T) (db.CreateAssetParams, int64) {
 	require.NotZero(t, assetId)
 	return arg, assetId
 }
+func cleanup(t *testing.T, asset db.CreateAssetParams) {
+	deleteArgs := db.DeleteAssetParams{
+		UrlPath:   asset.UrlPath,
+		CreatorID: asset.CreatorID,
+	}
+	err := testQueries.DeleteAsset(context.Background(), deleteArgs)
+	require.NoError(t, err)
+}
 
 func TestMain(m *testing.M) {
 	config, err := utils.LoadConfig("../", "test")
@@ -78,6 +86,7 @@ func TestRedisCache_Set(t *testing.T) {
 		require.Equal(t, randomAsset.Data, fileRow.Data)
 		cachedRow = postCache.Get(randomAsset.UrlPath)
 		require.Equal(t, fileRow, *cachedRow)
+		cleanup(t, randomAsset)
 	}
 
 }
