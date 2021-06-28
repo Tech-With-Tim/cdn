@@ -11,7 +11,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: |
-            Hi <b>${{ github.actor }}<//b>, Thanks for reporting an issue in our Repository.
+            Hi <b>${{ github.actor }}</b>, Thanks for reporting an issue in our Repository.
             If you haven't already, please include relevant information asked for in our templates.
           pr-message: |
             <img align="right" width=100px height=100px src="https://cdn.discordapp.com/attachments/776153365452554301/786297555415859220/Tech-With-Tim.png">
