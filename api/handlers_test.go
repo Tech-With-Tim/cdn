@@ -147,5 +147,57 @@ func TestCreateAsset(t *testing.T) {
 		receivedFileData, err = ioutil.ReadAll(fileRes.Body)
 		require.NoError(t, err)
 		require.Equal(t, originalFileData, receivedFileData)
+
+		// endpoint /manage/url
+		// check if the info is correct
+		fileReq, err = http.NewRequest("GET", "/manage/url/"+AssetDetails.UrlPath, nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusOK, fileRes.Code)
+		receivedFileData, err = ioutil.ReadAll(fileRes.Body)
+		require.NoError(t, err)
+
+		manageURLResponse := &db.GetAssetDetailsByUrlRow{}
+		err = json.Unmarshal(receivedFileData, manageURLResponse)
+		require.NoError(t, err)
+		require.Equal(t, assetId, int(manageURLResponse.ID))
+		require.Equal(t, assetName, manageURLResponse.Name)
+		require.Equal(t, AssetDetails.CreatorID, manageURLResponse.CreatorID)
+
+		// not found
+		// um, hopefully there isn't a url named * in the test db.
+		fileReq, err = http.NewRequest("GET", "/manage/url/*", nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusNotFound, fileRes.Code)
+
+		// endpoint /manage/id
+		// check if the info is correct
+		fileReq, err = http.NewRequest("GET", "/manage/id/"+strconv.Itoa(assetId), nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusOK, fileRes.Code)
+		receivedFileData, err = ioutil.ReadAll(fileRes.Body)
+		require.NoError(t, err)
+
+		manageIDResponse := &db.GetAssetDetailsByIdRow{}
+		err = json.Unmarshal(receivedFileData, manageIDResponse)
+		require.NoError(t, err)
+		require.Equal(t, AssetDetails.UrlPath, manageIDResponse.UrlPath)
+		require.Equal(t, assetName, manageIDResponse.Name)
+		require.Equal(t, AssetDetails.CreatorID, manageIDResponse.CreatorID)
+
+		// not found
+		// um, hopefully there isn't a id named 1 in the test db.
+		fileReq, err = http.NewRequest("GET", "/manage/id/1", nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusNotFound, fileRes.Code)
+
+		// not int
+		fileReq, err = http.NewRequest("GET", "/manage/id/abc", nil)
+		require.NoError(t, err)
+		fileRes = executeRequest(fileReq)
+		checkResponseCode(t, http.StatusBadRequest, fileRes.Code)
 	}
 }

@@ -17,5 +17,10 @@
 # app.env
 .vscode/
 .idea/
+*.iml
 heap.tar.gz
 profile.tar.gz
+
+# Just for manual testing
+# *.rb
+*.py
