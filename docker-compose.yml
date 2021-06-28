@@ -7,14 +7,17 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=cdn
-  api:
+  
+  redis:
+    image: redis:6.2-alpine3.13
+    restart: always
+
+  cdn:
     build:
       context: .
       dockerfile: Dockerfile
-
     ports:
       - "5000:5000"
-    restart: always
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=secret
@@ -23,8 +26,12 @@ services:
       - DB_PORT=5432
       - SECRET_KEY=mysecret # make sure to keep the same secret key in the jwt issuer
       - MAX_FILE_SIZE=30
+      - REDIS_HOST=redis:6379
+      - REDIS_DB=0
     depends_on:
       - postgres
+      - redis
     links:
       - postgres
-
+      - redis
+  
