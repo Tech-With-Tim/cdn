@@ -42,7 +42,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "techwithtim/cdn:${{ github.sha }}"
+          tags: |
+            techwithtim/cdn:latest
+            techwithtim/cdn:${{ github.sha }}
           builder: ${{ steps.buildx.outputs.name }}
           cache-to: type=local,dest=/tmp/.buildx-cache
           cache-from: type=local,src=/tmp/.buildx-cache
