@@ -2,10 +2,11 @@ package cache
 
 import (
 	json2 "encoding/json"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/go-redis/redis/v7"
 	"log"
 	"time"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/go-redis/redis/v7"
 )
 
 type redisCache struct {
@@ -25,6 +26,7 @@ func NewRedisCache(host string, db int, pass string, expires time.Duration) Post
 }
 
 func (cache *redisCache) getClient() *redis.Client {
+	log.Println("Trying to connect to redis")
 	return redis.NewClient(&redis.Options{
 		Addr:     cache.host,
 		Password: cache.pass,
@@ -38,6 +40,7 @@ func (cache *redisCache) Set(key string, value *db.GetFileRow) {
 	if err != nil {
 		log.Println(err.Error())
 	}
+	log.Printf("Added to cache: %s", key)
 	client.Set(key, json, cache.expires*time.Minute)
 }
 
