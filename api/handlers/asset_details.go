@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"database/sql"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 	"strconv"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/go-chi/chi/v5"
 )
 
 func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {

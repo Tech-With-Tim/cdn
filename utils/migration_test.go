@@ -1,9 +1,10 @@
 package utils
 
 import (
+	"testing"
+
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestMigrateUp(t *testing.T) {

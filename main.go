@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"github.com/Tech-With-Tim/cdn/api"
 	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
-	"log"
+
 	// _ "net/http/pprof"  // only in use when profiling
 	"os"
 

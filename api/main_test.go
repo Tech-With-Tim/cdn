@@ -1,12 +1,13 @@
 package api
 
 import (
-	"github.com/Tech-With-Tim/cdn/server"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/go-chi/chi/v5"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/Tech-With-Tim/cdn/server"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/go-chi/chi/v5"
 )
 
 var config *utils.Config

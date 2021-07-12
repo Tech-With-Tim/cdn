@@ -2,11 +2,12 @@ package db
 
 import (
 	"database/sql"
-	"github.com/Tech-With-Tim/cdn/utils"
-	_ "github.com/lib/pq"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/Tech-With-Tim/cdn/utils"
+	_ "github.com/lib/pq"
 )
 
 var testQueries *Queries

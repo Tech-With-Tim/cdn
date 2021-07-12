@@ -3,8 +3,9 @@ package db
 import (
 	"context"
 	"database/sql"
-	"github.com/Tech-With-Tim/cdn/utils"
 	"testing"
+
+	"github.com/Tech-With-Tim/cdn/utils"
 
 	"github.com/stretchr/testify/require"
 )

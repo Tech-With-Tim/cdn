@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -14,6 +13,8 @@ import (
 	"strconv"
 	"testing"
 	"time"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 
 	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/dgrijalva/jwt-go"

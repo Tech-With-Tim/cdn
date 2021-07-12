@@ -3,12 +3,13 @@ package cache
 import (
 	"context"
 	"database/sql"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/stretchr/testify/require"
 	"log"
 	"os"
 	"testing"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/stretchr/testify/require"
 )
 
 var postCache PostCache
