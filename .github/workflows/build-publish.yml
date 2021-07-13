@@ -16,6 +16,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2 # Checking out the repo
 
+      - name: Set Up Submodule
+        run: |
+          - git submodule init
+          - git submodule update
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
