@@ -21,7 +21,7 @@ sqlc_generate:
 
 test:
 	go run main.go migrate_up -t| true #ignore exit 0
-	go test ./...  -v -coverprofile cover.out
+	go test ./... -p 1 -v -coverprofile cover.out
 	@echo "================================================"
 	@echo "Coverage"
 	go tool cover -func cover.out

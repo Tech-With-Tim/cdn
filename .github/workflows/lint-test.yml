@@ -75,7 +75,7 @@ jobs:
           MAX_FILE_SIZE: 30
 
       - name: test
-        run: go test -v -coverprofile=coverage.txt -covermode=atomic ./...
+        run: go test -v -p 1 -coverprofile=coverage.txt -covermode=atomic ./...
         env:
           POSTGRES_USER: root
           POSTGRES_PASSWORD: mysecret
