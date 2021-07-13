@@ -39,3 +39,7 @@ WHERE creator_id = $1
 ORDER BY id
 LIMIT $2 -- PageSize
     OFFSET $3; -- ((Pagenumber - 1) * PageSize)
+
+
+-- name: CreateUser :exec
+INSERT INTO users (id, username, discriminator) VALUES ($1, $2, $3);

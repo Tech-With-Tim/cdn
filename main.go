@@ -58,7 +58,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateUp(conf, "./db/migration/")
+				err = utils.MigrateUp(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -80,7 +80,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateDown(conf, "./db/migration/")
+				err = utils.MigrateDown(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -106,7 +106,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateSteps(c.Int("steps"), conf, "./db/migration/")
+				err = utils.MigrateSteps(c.Int("steps"), conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}

@@ -2,6 +2,12 @@
 
 package db
 
+import (
+	"database/sql"
+	"encoding/json"
+	"time"
+)
+
 type Assets struct {
 	ID        int64  `json:"id"`
 	Name      string `json:"name"`
@@ -10,9 +16,41 @@ type Assets struct {
 	CreatorID int64  `json:"creatorID"`
 }
 
+type Challenges struct {
+	ID          int64  `json:"id"`
+	Title       string `json:"title"`
+	AuthorID    int64  `json:"authorID"`
+	Description string `json:"description"`
+	Rules       string `json:"rules"`
+	Reward      int32  `json:"reward"`
+}
+
+type Challengesubmissions struct {
+	ID          int64  `json:"id"`
+	ChallengeID int64  `json:"challengeID"`
+	Code        string `json:"code"`
+	Language    string `json:"language"`
+	AuthorID    int64  `json:"authorID"`
+}
+
 type Files struct {
 	ID       int64  `json:"id"`
 	Name     string `json:"name"`
 	Mimetype string `json:"mimetype"`
 	Data     []byte `json:"data"`
+}
+
+type Tokens struct {
+	UserID    int64           `json:"userID"`
+	ExpiresAt time.Time       `json:"expiresAt"`
+	Token     string          `json:"token"`
+	Data      json.RawMessage `json:"data"`
+}
+
+type Users struct {
+	ID            int64          `json:"id"`
+	Username      string         `json:"username"`
+	Discriminator string         `json:"discriminator"`
+	Avatar        sql.NullString `json:"avatar"`
+	App           bool           `json:"app"`
 }

@@ -8,7 +8,7 @@ import (
 )
 
 func TestMigrateUp(t *testing.T) {
-	err := MigrateUp(config, "../db/migration/")
+	err := MigrateUp(config, "../models/migrations/")
 	if err != nil {
 		if err != migrate.ErrNoChange {
 			require.NoError(t, err)
@@ -17,11 +17,11 @@ func TestMigrateUp(t *testing.T) {
 }
 
 func TestMigrateDown(t *testing.T) {
-	err := MigrateDown(config, "../db/migration/")
+	err := MigrateDown(config, "../models/migrations/")
 	require.NoError(t, err)
 }
 
 func TestMigrateSteps(t *testing.T) {
-	err := MigrateSteps(1, config, "../db/migration/")
+	err := MigrateSteps(1, config, "../models/migrations/")
 	require.NoError(t, err)
 }
