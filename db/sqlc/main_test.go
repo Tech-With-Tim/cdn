@@ -19,7 +19,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	dbSource := utils.GetDbUri(config)
+	dbSource := config.DBUri
 	testDB, err = sql.Open("postgres", dbSource)
 	if err != nil {
 		log.Fatalln(err.Error())

@@ -16,14 +16,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: >
+      sh -c "/app/main migrate_up | true; /app/main runserver --host 0.0.0.0"
     ports:
       - "5000:5000"
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=secret
-      - DB_NAME=cdn
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_URI=postgres://root:secret@postgres:5432/cdn?sslmode=disable
       - SECRET_KEY=mysecret # make sure to keep the same secret key in the jwt issuer
       - MAX_FILE_SIZE=30
       - REDIS_HOST=redis:6379

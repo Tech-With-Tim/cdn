@@ -40,7 +40,7 @@ func NewServer(config utils.Config) *Server {
 func (s *Server) PrepareDB(config utils.Config) (err error) {
 
 	//Connect to db, else exit 0
-	dbSource := utils.GetDbUri(config)
+	dbSource := config.DBUri
 	DB, err := sql.Open("postgres", dbSource)
 	if err != nil {
 		return
