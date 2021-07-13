@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"github.com/Tech-With-Tim/cdn/api"
 	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
-	"log"
+
 	// _ "net/http/pprof"  // only in use when profiling
 	"os"
 
@@ -56,7 +58,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateUp(conf, "./db/migration/")
+				err = utils.MigrateUp(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -78,7 +80,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateDown(conf, "./db/migration/")
+				err = utils.MigrateDown(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -104,7 +106,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateSteps(c.Int("steps"), conf, "./db/migration/")
+				err = utils.MigrateSteps(c.Int("steps"), conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}

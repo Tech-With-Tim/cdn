@@ -3,12 +3,13 @@ package cache
 import (
 	"context"
 	"database/sql"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/stretchr/testify/require"
 	"log"
 	"os"
 	"testing"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/stretchr/testify/require"
 )
 
 var postCache PostCache
@@ -21,7 +22,7 @@ func createRandomAsset(t *testing.T) (db.CreateAssetParams, int64) {
 		Data:      utils.StrToBinary(utils.RandomString(16), 10),
 		Name_2:    utils.RandomString(4), //AssetName
 		UrlPath:   utils.RandomString(4),
-		CreatorID: 735376244656308274,
+		CreatorID: 735376244656308212,
 	}
 	//Context.Background() is to provide empty Context For tests
 	assetId, err := testQueries.CreateAsset(context.Background(), arg)
@@ -36,6 +37,16 @@ func cleanup(t *testing.T, asset db.CreateAssetParams) {
 		CreatorID: asset.CreatorID,
 	}
 	err := testQueries.DeleteAsset(context.Background(), deleteArgs)
+	require.NoError(t, err)
+}
+
+func createTestUser(t *testing.T) {
+	user := db.CreateUserParams{
+		ID:            735376244656308212,
+		Username:      utils.RandomString(4),
+		Discriminator: "9123",
+	}
+	err := testQueries.CreateUser(context.Background(), user)
 	require.NoError(t, err)
 }
 
@@ -58,6 +69,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestRedisCache_Set(t *testing.T) {
+	createTestUser(t)
 	var n = 10
 	fileRowChan := make(chan db.GetFileRow)
 	errChan := make(chan error)

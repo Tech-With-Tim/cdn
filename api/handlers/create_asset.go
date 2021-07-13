@@ -2,10 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/omeid/pgerror"
-	"golang.org/x/sync/errgroup"
 	"html"
 	"io/ioutil"
 	"log"
@@ -13,6 +9,11 @@ import (
 	"mime/multipart"
 	"net/http"
 	"strconv"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/omeid/pgerror"
+	"golang.org/x/sync/errgroup"
 )
 
 // getUrlPath generates a random url path if url path is not provided

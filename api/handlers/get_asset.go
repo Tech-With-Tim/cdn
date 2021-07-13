@@ -2,12 +2,13 @@ package handlers
 
 import (
 	"database/sql"
+	"log"
+	"net/http"
+
 	"github.com/Tech-With-Tim/cdn/cache"
 	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/go-chi/chi/v5"
-	"log"
-	"net/http"
 )
 
 func GetAsset(store *db.Store, cache cache.PostCache) http.HandlerFunc {
