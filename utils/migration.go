@@ -46,7 +46,7 @@ func MigrateSteps(steps int, config Config, path string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Migrated %v steps", steps)
+	fmt.Printf("Migrated %v steps \n", steps)
 	return nil
 }
 

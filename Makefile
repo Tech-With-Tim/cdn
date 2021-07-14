@@ -20,13 +20,14 @@ sqlc_generate:
 	docker run --rm -v $(ROOT_DIR):/src -w /src kjconroy/sqlc generate
 
 test:
-	go run main.go migrate_up -t| true #ignore exit 0
-	go test ./... -p 1 -v -coverprofile cover.out
-	@echo "================================================"
-	@echo "Coverage"
-	go tool cover -func cover.out
+	@go run main.go migrate_up -t | true
+	@sh ./test.sh
+	@echo "================================================" | GREP_COLOR='01;33' grep -E --color '^.*=.*'
+	@printf "\033[33mCoverage\033[0m"
+	@echo ""
+	@sh ./cover.sh
 	@echo "Cleaning..."
-	go run main.go dropdb -t
+	@go run main.go dropdb -t
 # @echo "docker run --rm -v ${d}:/src -w /src kjconroy/sqlc generate"
 # createtestdb:
 # 	docker exec -it postgres12 createdb --username=sponge --owner=sponge twtTest

@@ -74,7 +74,6 @@ func (s *Server) PrepareRouter() {
 }
 
 func (s *Server) RunServer(host string, port int) (err error) {
-
 	log.Printf("Starting Server at %s:%v", host, port)
 
 	err = http.ListenAndServe(fmt.Sprintf("%s:%v", host, port), s.Router)
