@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=cdn
   
   redis:
-    image: redis:6.2-alpine3.13
+    image: redis:6.2
     restart: always
 
   cdn:
