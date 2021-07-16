@@ -136,7 +136,7 @@ func commands(config utils.Config) {
 				CdnRouter := chi.NewRouter()
 
 				//Add Routes to Routers Here
-				api.MainRouter(CdnRouter, s.Store, config)
+				api.MainRouter(CdnRouter, s.Store, config, *s.Cache)
 				//Mount Routers here
 				s.Router.Mount("/", CdnRouter)
 				// r.Mount("/debug/", middleware.Profiler()) // Only in use when profiling

@@ -8,15 +8,15 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var postCache cache.PostCache
+// var postCache cache.PostCache
 
-func MainRouter(r *chi.Mux, store *db.Store, config utils.Config) {
+func MainRouter(r *chi.Mux, store *db.Store, config utils.Config, postCache cache.PostCache) {
 
-	postCache = cache.NewRedisCache(
-		config.RedisHost,
-		config.RedisDb,
-		config.RedisPass,
-		60)
+	// postCache = cache.NewRedisCache(
+	// 	config.RedisHost,
+	// 	config.RedisDb,
+	// 	config.RedisPass,
+	// 	60)
 
 	r.Group(func(r chi.Router) {
 		r.Get("/", handlers.HelloWorld())

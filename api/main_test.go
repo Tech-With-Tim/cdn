@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 	s = server.NewServer(conf)
 	CdnRouter := chi.NewRouter()
 	//Add Routes to Routers Here
-	MainRouter(CdnRouter, s.Store, conf)
+	MainRouter(CdnRouter, s.Store, conf, *s.Cache)
 	//Mount Routers here
 	s.Router.Mount("/", CdnRouter)
 	err = createTestUser()
