@@ -16,7 +16,6 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
-          args: -e SA1029
   Test:
     name: Test
     runs-on: ubuntu-latest

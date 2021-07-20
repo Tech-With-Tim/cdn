@@ -68,7 +68,7 @@ func storeAsset(mimetype string,
 }
 
 //CreateAsset Creates asset from file upload and stores its in the database
-func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
+func (s *Service) CreateAsset(FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
 		fileData := make(chan []byte)
@@ -125,7 +125,7 @@ func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 			urlPath = getUrlPath(html.EscapeString(r.FormValue("url_path")), fileExt)
 			//Storing asset in database
 			assetId, err = storeAsset(mimetype, fileName, <-fileData,
-				assetName, urlPath, userId, store, w, r)
+				assetName, urlPath, userId, s.Store, w, r)
 			if err != nil {
 				return err
 			}

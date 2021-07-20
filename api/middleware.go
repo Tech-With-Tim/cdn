@@ -11,6 +11,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+type ctxString string
+
 const errorstring string = "The server could not verify that you are authorized to access the URL requested. " +
 	"You either supplied the wrong credentials (e.g. a bad password), " +
 	"or your browser doesn't understand how to supply the credentials required."
@@ -54,8 +56,8 @@ func AuthJwtWrap(SecretKey string) func(next http.Handler) http.Handler {
 				log.Println(err.Error())
 				return
 			}
-
-			ctx := context.WithValue(r.Context(), "uid", uid) // adding the user ID to the context
+			var ctxvalue ctxString = "uid"
+			ctx := context.WithValue(r.Context(), ctxvalue, uid) // adding the user ID to the context
 			next.ServeHTTP(w, r.WithContext(ctx))
 
 		})

@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/Tech-With-Tim/cdn/api"
+	"github.com/Tech-With-Tim/cdn/api/handlers"
 	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
 
@@ -136,7 +137,8 @@ func commands(config utils.Config) {
 				CdnRouter := chi.NewRouter()
 
 				//Add Routes to Routers Here
-				api.MainRouter(CdnRouter, s.Store, config, *s.Cache)
+				services := handlers.NewServiceHandler(s.Store, *s.Cache)
+				api.MainRouter(CdnRouter, config, services)
 				//Mount Routers here
 				s.Router.Mount("/", CdnRouter)
 				// r.Mount("/debug/", middleware.Profiler()) // Only in use when profiling

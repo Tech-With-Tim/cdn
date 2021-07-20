@@ -6,6 +6,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Tech-With-Tim/cdn/api/handlers"
 	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/Tech-With-Tim/cdn/utils"
@@ -24,7 +25,9 @@ func TestMain(m *testing.M) {
 	s = server.NewServer(conf)
 	CdnRouter := chi.NewRouter()
 	//Add Routes to Routers Here
-	MainRouter(CdnRouter, s.Store, conf, *s.Cache)
+	services := handlers.NewServiceHandler(s.Store, *s.Cache)
+
+	MainRouter(CdnRouter, conf, services)
 	//Mount Routers here
 	s.Router.Mount("/", CdnRouter)
 	err = createTestUser()
