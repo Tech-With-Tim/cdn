@@ -23,6 +23,7 @@ func MainRouter(r *chi.Mux, store *db.Store, config utils.Config) {
 		r.Get("/{AssetUrl}", handlers.GetAsset(store, postCache))
 		r.Get("/manage/url/{path}", handlers.FetchAssetDetailsByURL(store))
 		r.Get("/manage/id/{path}", handlers.FetchAssetDetailsByID(store))
+		r.Get("/docs", handlers.GetDocs())
 	})
 
 	//Private Routes
@@ -31,4 +32,5 @@ func MainRouter(r *chi.Mux, store *db.Store, config utils.Config) {
 		r.Post("/manage", handlers.CreateAsset(store, config.MaxFileSize))
 		r.Get("/testing", handlers.HelloWorld())
 	})
+
 }

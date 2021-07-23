@@ -10,6 +10,9 @@ import (
 	"strconv"
 )
 
+/*
+Returns details of assets, given the path to the asset
+*/
 func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
@@ -36,6 +39,9 @@ func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 	}
 }
 
+/*
+Returns details of assets, given the asset id
+*/
 func FetchAssetDetailsByID(store *db.Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}

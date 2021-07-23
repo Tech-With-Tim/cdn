@@ -5,6 +5,9 @@ import (
 	"net/http"
 )
 
+/*
+Return "Hello World" when called.
+*/
 func HelloWorld() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		//fmt.Println(r.Header)

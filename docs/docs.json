@@ -1,0 +1,30 @@
+{
+   "Name": "HelloWorld",
+   "Route": "/testing",
+   "Description": "Return \"Hello World\" when called."
+},
+{
+   "Name": "HelloWorld",
+   "Route": "/",
+   "Description": "Return \"Hello World\" when called."
+},
+{
+   "Name": "GetAsset",
+   "Route": "/{AssetUrl}",
+   "Description": "ABCDE"
+},
+{
+   "Name": "FetchAssetDetailsByURL",
+   "Route": "/manage/url/{path}",
+   "Description": "Returns details of assets, given the path to the asset"
+},
+{
+   "Name": "FetchAssetDetailsByID",
+   "Route": "/manage/id/{path}",
+   "Description": "Returns details of assets, given the asset id"
+},
+{
+   "Name": "CreateAsset",
+   "Route": "/manage",
+   "Description": "ABCDEFGHIJKLMNOP"
+},

@@ -66,7 +66,9 @@ func storeAsset(mimetype string,
 	return
 }
 
-//CreateAsset Creates asset from file upload and stores its in the database
+/*
+ABCDEFGHIJKLMNOP
+*/
 func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}

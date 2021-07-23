@@ -2,9 +2,13 @@ package main
 
 import (
 	"github.com/Tech-With-Tim/cdn/api"
+	"github.com/Tech-With-Tim/cdn/docs"
 	"github.com/Tech-With-Tim/cdn/server"
-	"github.com/go-chi/chi/v5"
+
 	"log"
+
+	"github.com/go-chi/chi/v5"
+
 	// _ "net/http/pprof"  // only in use when profiling
 	"os"
 
@@ -13,6 +17,16 @@ import (
 )
 
 var app = cli.NewApp()
+
+// Route - Handler Function Name
+var routes map[string]string = map[string]string{
+	"/":                  "HelloWorld",
+	"/{AssetUrl}":        "GetAsset",
+	"/manage/url/{path}": "FetchAssetDetailsByURL",
+	"/manage/id/{path}":  "FetchAssetDetailsByID",
+	"/manage":            "CreateAsset",
+	"/testing":           "HelloWorld",
+}
 
 func main() {
 	//Export Env Variables If exist
@@ -108,6 +122,22 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
+				return nil
+			},
+		},
+		{
+			Name:  "generate_docs",
+			Usage: "Generate Documentation for the CDN",
+			Action: func(_ *cli.Context) error {
+
+				os.Chdir("./api/handlers")
+
+				for route, handler := range routes {
+					docs.AddDocs(route, handler)
+				}
+
+				docs.GenerateDocs()
+
 				return nil
 			},
 		},

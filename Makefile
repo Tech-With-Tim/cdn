@@ -19,6 +19,9 @@ ROOT_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 sqlc_generate:
 	docker run --rm -v $(ROOT_DIR):/src -w /src kjconroy/sqlc generate
 
+generate_docs:
+	go run main.go generate_docs
+
 test:
 	go run main.go migrate_up -t| true #ignore exit 0
 	go test ./...  -v -coverprofile cover.out

@@ -10,6 +10,9 @@ import (
 	"net/http"
 )
 
+/*
+ABCDE
+*/
 func GetAsset(store *db.Store, cache cache.PostCache) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
