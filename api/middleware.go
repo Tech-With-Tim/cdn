@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 const errorstring string = "The server could not verify that you are authorized to access the URL requested. " +

@@ -17,7 +17,7 @@ import (
 	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 
 	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/require"
 )
 
