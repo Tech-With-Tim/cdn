@@ -14,20 +14,23 @@ type redisCache struct {
 	db      int
 	pass    string
 	expires time.Duration
+	client  *redis.Client
 }
 
 func NewRedisCache(host string, db int, pass string, expires time.Duration) PostCache {
-	return &redisCache{
+	cache := &redisCache{
 		host:    host,
 		db:      db,
 		pass:    pass,
 		expires: expires,
 	}
+	cache.getClient()
+	return cache
 }
 
-func (cache *redisCache) getClient() *redis.Client {
+func (cache *redisCache) getClient() {
 	log.Println("Trying to connect to redis")
-	return redis.NewClient(&redis.Options{
+	cache.client = redis.NewClient(&redis.Options{
 		Addr:     cache.host,
 		Password: cache.pass,
 		DB:       cache.db,
@@ -35,19 +38,17 @@ func (cache *redisCache) getClient() *redis.Client {
 }
 
 func (cache *redisCache) Set(key string, value *db.GetFileRow) {
-	client := cache.getClient()
 	json, err := json2.Marshal(value)
 	if err != nil {
 		log.Println(err.Error())
 	}
 	log.Printf("Added to cache: %s", key)
-	client.Set(key, json, cache.expires*time.Minute)
+	cache.client.Set(key, json, cache.expires*time.Minute)
 }
 
 func (cache *redisCache) Get(key string) *db.GetFileRow {
-	client := cache.getClient()
 
-	val, err := client.Get(key).Result()
+	val, err := cache.client.Get(key).Result()
 	if err != nil {
 		return nil
 	}

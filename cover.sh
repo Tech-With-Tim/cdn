@@ -1,0 +1,1 @@
+go tool cover -func cover.out | GREP_COLOR='01;32' grep -E --color 'github.*$|^.*github.*$|^.*total.*$|$ '

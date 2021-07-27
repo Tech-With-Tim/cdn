@@ -58,7 +58,7 @@ func TestMain(m *testing.M) {
 	if config.RedisHost == "" {
 		os.Exit(0)
 	}
-	dbSource := utils.GetDbUri(config)
+	dbSource := config.DBUri
 	testDB, err := sql.Open("postgres", dbSource)
 	if err != nil {
 		log.Fatalln(err.Error())

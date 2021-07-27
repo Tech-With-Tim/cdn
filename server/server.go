@@ -11,10 +11,11 @@ import (
 	"log"
 	"net/http"
 
+	"time"
+
+	"github.com/Tech-With-Tim/cdn/cache"
 	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"github.com/Tech-With-Tim/cdn/utils"
-
-	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -25,6 +26,7 @@ import (
 type Server struct {
 	Router *chi.Mux
 	Store  *db.Store
+	Cache  *cache.PostCache
 }
 
 func NewServer(config utils.Config) *Server {
@@ -33,14 +35,24 @@ func NewServer(config utils.Config) *Server {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
+	s.PrepareRedis(config)
 	s.PrepareRouter()
 	return s
+}
+
+func (s *Server) PrepareRedis(config utils.Config) {
+	cache := cache.NewRedisCache(
+		config.RedisHost,
+		config.RedisDb,
+		config.RedisPass,
+		time.Hour*24)
+	s.Cache = &cache
 }
 
 func (s *Server) PrepareDB(config utils.Config) (err error) {
 
 	//Connect to db, else exit 0
-	dbSource := utils.GetDbUri(config)
+	dbSource := config.DBUri
 	DB, err := sql.Open("postgres", dbSource)
 	if err != nil {
 		return
@@ -74,7 +86,6 @@ func (s *Server) PrepareRouter() {
 }
 
 func (s *Server) RunServer(host string, port int) (err error) {
-
 	log.Printf("Starting Server at %s:%v", host, port)
 
 	err = http.ListenAndServe(fmt.Sprintf("%s:%v", host, port), s.Router)

@@ -39,11 +39,7 @@ Set the environment variables. Start by writing this in a file named `app.env` a
 app.env and test.env should look like this:
 
 ```prolog
-POSTGRES_USER=user
-POSTGRES_PASSWORD=pwd
-DB_NAME=db
-DB_HOST=localhost
-DB_PORT=5432
+DB_URI=postgres://user:password@localhost:5432/dbname?sslmode=disable
 SECRET_KEY=secret
 MAX_FILE_SIZE=30
 ```

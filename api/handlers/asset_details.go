@@ -6,21 +6,22 @@ import (
 	"net/http"
 	"strconv"
 
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/go-chi/chi/v5"
 )
 
-func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
+func (s *Service) FetchAssetDetailsByURL() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
 		url := chi.URLParam(r, "path")
-		fileRow, err := store.GetAssetDetailsByUrl(r.Context(), url)
+		fileRow, err := s.Store.GetAssetDetailsByUrl(r.Context(), url)
+
 		// type GetAssetDetailsByUrlRow struct {
 		//	ID   int64  `json:"id"`
 		//	Name string `json:"name"`
 		//  CreatorID int64  `json:"creatorID"`
 		// }
+
 		if err != nil {
 			if err == sql.ErrNoRows {
 				resp = map[string]interface{}{"error": "not found",
@@ -37,7 +38,7 @@ func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 	}
 }
 
-func FetchAssetDetailsByID(store *db.Store) http.HandlerFunc {
+func (s *Service) FetchAssetDetailsByID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
 		id, err := strconv.Atoi(chi.URLParam(r, "path"))
@@ -48,7 +49,7 @@ func FetchAssetDetailsByID(store *db.Store) http.HandlerFunc {
 			return
 		}
 
-		fileRow, err := store.GetAssetDetailsById(r.Context(), int64(id))
+		fileRow, err := s.Store.GetAssetDetailsById(r.Context(), int64(id))
 		// type GetAssetDetailsByIdRow struct {
 		//    UrlPath   string `json:"urlPath"`
 		//    Name      string `json:"name"`
