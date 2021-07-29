@@ -2,24 +2,16 @@ package utils
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/golang-migrate/migrate/v4/source/github"
-	"log"
 )
 
-func GetDbUri(config Config) string {
-	return fmt.Sprintf("postgres://%s:%s@%s:%v/%s?sslmode=disable",
-		config.PostgresUser,
-		config.PostgresPassword,
-		config.DbHost,
-		config.DbPort,
-		config.DbName)
-}
-
 func MigrateUp(config Config, path string) error {
-	m, err := migrate.New("file://"+path, GetDbUri(config))
+	m, err := migrate.New("file://"+path, config.DBUri)
 	if err != nil {
 		return err
 	}
@@ -32,7 +24,7 @@ func MigrateUp(config Config, path string) error {
 }
 
 func MigrateDown(config Config, path string) error {
-	m, err := migrate.New("file://"+path, GetDbUri(config))
+	m, err := migrate.New("file://"+path, config.DBUri)
 
 	if err != nil {
 		return err
@@ -46,7 +38,7 @@ func MigrateDown(config Config, path string) error {
 }
 
 func MigrateSteps(steps int, config Config, path string) error {
-	m, err := migrate.New("file://"+path, GetDbUri(config))
+	m, err := migrate.New("file://"+path, config.DBUri)
 	if err != nil {
 		return err
 	}
@@ -54,7 +46,7 @@ func MigrateSteps(steps int, config Config, path string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Migrated %v steps", steps)
+	fmt.Printf("Migrated %v steps \n", steps)
 	return nil
 }
 

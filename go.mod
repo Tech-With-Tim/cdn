@@ -5,10 +5,10 @@ go 1.16
 require (
 	github.com/caarlos0/env v3.5.0+incompatible
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi/v5 v5.0.3
 	github.com/go-chi/cors v1.2.0
 	github.com/go-redis/redis/v7 v7.4.0
+	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/lib/pq v1.10.1
 	github.com/omeid/pgerror v0.0.0-20201018020948-42c66c4d27d4

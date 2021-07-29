@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
 	"io"
 	"io/ioutil"
 	"mime/multipart"
@@ -15,8 +14,10 @@ import (
 	"testing"
 	"time"
 
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+
 	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"github.com/stretchr/testify/require"
 )
 
@@ -42,8 +43,7 @@ func createAuthToken(exp int64) (string, error) {
 	claims := jwt.MapClaims{}
 
 	claims["uid"] = fmt.Sprintf("%v",
-		utils.RandomInt(328604827967815690,
-			735376244656308274))
+		328604827967815690)
 	claims["exp"] = exp //time.Now().Add(time.Hour * 24).Unix()
 	claims["IssuedAt"] = time.Now().Unix()
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), claims)

@@ -3,8 +3,9 @@ package db
 import (
 	"context"
 	"database/sql"
-	"github.com/Tech-With-Tim/cdn/utils"
 	"testing"
+
+	"github.com/Tech-With-Tim/cdn/utils"
 
 	"github.com/stretchr/testify/require"
 )
@@ -37,7 +38,6 @@ func cleanup(t *testing.T, asset CreateAssetParams) {
 
 func TestQueries_CreateAsset(t *testing.T) {
 	store := NewStore(testDB) //testDb is a global var check cdn_test.go
-
 	// run 6 concurrent transactions
 	n := 6
 	errors := make(chan error)

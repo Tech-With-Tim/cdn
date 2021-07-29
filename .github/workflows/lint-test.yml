@@ -27,9 +27,9 @@ jobs:
         image: postgres:12
         # Provide the password for postgres
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: mysecret
-          POSTGRES_DB: cdn
+          POSTGRES_USER: twt
+          POSTGRES_PASSWORD: twt
+          POSTGRES_DB: twt
         ports:
           - 5432:5432
           # Set health checks to wait until postgres has started
@@ -53,6 +53,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Set Up Submodule
+        run: |
+          git submodule init
+          git submodule update
 
       - name: Set up Go
         uses: actions/setup-go@v2
@@ -62,22 +66,14 @@ jobs:
       - name: Migrate
         run: go run main.go migrate_up
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: mysecret
-          DB_NAME: cdn
-          DB_HOST: localhost
-          DB_PORT: 5432
+          DB_URI: postgres://twt:twt@localhost:5432/twt?sslmode=disable
           SECRET_KEY: mysecret
           MAX_FILE_SIZE: 30
 
       - name: test
-        run: go test -v -coverprofile=coverage.txt -covermode=atomic ./...
+        run: go test -v -p 1 -coverprofile=coverage.txt -covermode=atomic ./...
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: mysecret
-          DB_NAME: cdn
-          DB_HOST: localhost
-          DB_PORT: 5432
+          DB_URI: postgres://twt:twt@localhost:5432/twt?sslmode=disable
           SECRET_KEY: mysecret
           MAX_FILE_SIZE: 30
           REDIS_HOST: localhost:6379

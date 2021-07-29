@@ -41,6 +41,24 @@ func (q *Queries) CreateAsset(ctx context.Context, arg CreateAssetParams) (int64
 	return id, err
 }
 
+const createUser = `-- name: CreateUser :exec
+
+
+INSERT INTO users (id, username, discriminator) VALUES ($1, $2, $3)
+`
+
+type CreateUserParams struct {
+	ID            int64  `json:"id"`
+	Username      string `json:"username"`
+	Discriminator string `json:"discriminator"`
+}
+
+// ((Pagenumber - 1) * PageSize)
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) error {
+	_, err := q.db.ExecContext(ctx, createUser, arg.ID, arg.Username, arg.Discriminator)
+	return err
+}
+
 const deleteAsset = `-- name: DeleteAsset :exec
 DELETE
     FROM files

@@ -1,4 +1,4 @@
-<img align="right" width=200px height=200px src="https://cdn.discordapp.com/attachments/776153365452554301/786297555415859220/Tech-With-Tim.png" alt="Project logo">
+  <img align="right" width=200px height=200px src="https://cdn.discordapp.com/attachments/776153365452554301/786297555415859220/Tech-With-Tim.png" alt="Project logo">
 
 <h1>Tech With Tim - CDN</h1>
 
@@ -39,11 +39,7 @@ Set the environment variables. Start by writing this in a file named `app.env` a
 app.env and test.env should look like this:
 
 ```prolog
-POSTGRES_USER=user
-POSTGRES_PASSWORD=pwd
-DB_NAME=db
-DB_HOST=localhost
-DB_PORT=5432
+DB_URI=postgres://user:password@localhost:5432/dbname?sslmode=disable
 SECRET_KEY=secret
 MAX_FILE_SIZE=30
 ```
@@ -55,6 +51,7 @@ MAX_FILE_SIZE=30
 - To create postgres container `make postgres`
 - To create db `make createdb`
 - To drop db `make dropdb`
+- To generate documentation (You will need npm) `make generate_docs`
 
 #### run `go mod tidy` to install packages
 #### cli commands 
@@ -62,6 +59,7 @@ MAX_FILE_SIZE=30
 go run main.go migrate_up
 go run main.go dropdb
 go run main.go migrate_steps --steps int
+go run main.go generate_docs
 go run main.go runserver --host localhost --port port (localhost, 5000 are default)
 ```
 
@@ -72,10 +70,10 @@ go run main.go dropdb -t
 go run main.go migrate_steps -t --steps int
 ```
 
-### Use the make file its your best friend 🛠
+### Use the Make file its your best friend 🛠
 #### Make commands
-##### If you are on windows please use git bash or wsl also you would have to install make for windows
-##### to install make for windows run `winget install GnuWin32.Make`
+##### If you are on windows please use git bash or wsl also you would have to install Make for windows
+##### To install make for windows run `winget install GnuWin32.Make`
 
 ```shell
 make postgres #creates docker container for postgres12
@@ -109,7 +107,7 @@ go test ./... -v
 - [Go](https://go.dev/) - Language
 - [go-chi](https://github.com/go-chi/chi) - Router
 - [sqlc](https://github.com/kyleconroy/sqlc) - Database Query Helper
+- [Svelte](https://svelte.dev/)
 
 ## ✍️ Authors
 See the list of [contributors](https://github.com/Tech-With-Tim/cdn/contributors) who participated in this project.
-

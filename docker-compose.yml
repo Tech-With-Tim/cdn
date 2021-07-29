@@ -4,26 +4,24 @@ services:
     image: postgres:12-alpine
     restart: always
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=cdn
+      - POSTGRES_USER=twt
+      - POSTGRES_PASSWORD=twt
+      - POSTGRES_DB=twt
   
   redis:
-    image: redis:6.2-alpine3.13
+    image: redis:6.2
     restart: always
 
   cdn:
     build:
       context: .
       dockerfile: Dockerfile
+    command: >
+      sh -c "/app/main migrate_up | true; /app/main runserver --host 0.0.0.0"
     ports:
       - "5000:5000"
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=secret
-      - DB_NAME=cdn
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_URI=postgres://twt:twt@postgres:5432/twt?sslmode=disable
       - SECRET_KEY=mysecret # make sure to keep the same secret key in the jwt issuer
       - MAX_FILE_SIZE=30
       - REDIS_HOST=redis:6379
