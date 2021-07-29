@@ -17,6 +17,7 @@ type RouteInfo struct {
 	Description string
 }
 
+// Extract comments to form docs
 func AddDocs(route, funcName string) error {
 
 	rawFunc := funcName
@@ -55,6 +56,7 @@ func AddDocs(route, funcName string) error {
 	return nil
 }
 
+// Write docs to a json file
 func GenerateDocs() {
 
 	jsonData, _ := json.MarshalIndent(routes, "", "   ")
