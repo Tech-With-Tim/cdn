@@ -19,6 +19,9 @@ type RouteInfo struct {
 
 func AddDocs(route, funcName string) error {
 
+	rawFunc := funcName
+
+	funcName = strings.ReplaceAll(funcName, " ", "")
 	output, err := exec.Command("go", "doc", funcName).Output()
 
 	if err != nil {
@@ -32,11 +35,13 @@ func AddDocs(route, funcName string) error {
 		cleanDocs = append(cleanDocs, strings.TrimSpace(i))
 	}
 
-	// Remove empty lines. Output - A single line documentation (preferrably)
+	// Remove empty lines. Output - A multiline doc string
 	documentation := strings.Trim(strings.Join(cleanDocs[3:], "\n"), "\n")
+	documentation = strings.ReplaceAll(documentation, "\n\n", "<br>")
+	documentation = strings.ReplaceAll(documentation, "\n", "")
 
 	routeDocs := RouteInfo{
-		funcName,
+		rawFunc,
 		route,
 		documentation,
 	}
@@ -52,12 +57,7 @@ func AddDocs(route, funcName string) error {
 
 func GenerateDocs() {
 
-	jsonData := ""
-
-	for _, route := range routes {
-		docsJson, _ := json.MarshalIndent(route, "", "   ")
-		jsonData += string(docsJson) + ",\n"
-	}
+	jsonData, _ := json.MarshalIndent(routes, "", "   ")
 
 	err := ioutil.WriteFile("../../docs/docs.json", []byte(jsonData), 0644)
 

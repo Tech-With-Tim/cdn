@@ -15,8 +15,10 @@ import (
 	"strconv"
 )
 
-// getUrlPath generates a random url path if url path is not provided
-// in the request.
+/*
+getUrlPath generates a random url path if url path is not provided
+in the request.
+*/
 func getUrlPath(url string, fileExt []string) string {
 	if url == "" {
 		if len(fileExt) != 0 {
@@ -67,7 +69,14 @@ func storeAsset(mimetype string,
 }
 
 /*
-ABCDEFGHIJKLMNOP
+Response: JSON
+
+URL Parameters: None
+
+Create Asset creates an asset with a given file, uploaded
+under the `data` parameter in the form data. If it succeeds,
+it returns a 201 Created Status. If it fails, the error is returned,
+along with the error code.
 */
 func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

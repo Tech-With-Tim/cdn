@@ -10,14 +10,13 @@
 			routeList = routes
 		} else {
 			routeList = routes.filter(
-				(route) => route.toLowerCase().includes(search.toLowerCase())
+				(route) => route.Name.toLowerCase().includes(search.toLowerCase())
 			)
 		}
 	}
 
 	function ScrollTo(route) {
 		route = route.replace(/\s/g, "-")
-		console.log(route)
 		let routeDiv = document.getElementById(route)
 		routeDiv.scrollIntoView({behavior: 'smooth'})
 	}
@@ -26,12 +25,23 @@
 
 <div class="container">
 	<div class="inner">
-		<input bind:value={search} />
+		<input bind:value={search} placeholder="Search" />
 		{#if routeList.length != 0}
 			{#each routeList as route}
-				<div class="route" on:click={ScrollTo(route)}>
-					{route}
-				</div>
+				<table>
+					<tr>
+						<td style="display: flex; justify-content: center;">
+							<div class="route" on:click={ScrollTo(route.Name)}>
+								{route.Name}
+							</div>
+						</td>
+						<td style="width: 100%" />
+						<td>
+							<!-- svelte-ignore a11y-missing-attribute -->
+							<img src="arrow.png" width=20>
+						</td>
+					</tr>
+				</table>
 			{/each}
 		{:else}
 			<div class="not-found">No results found</div>
@@ -41,33 +51,46 @@
 
 <style>
 	.container {
+		background-color: #28282d;
 		display: block;
 		height: 100%;
+		width: max-content;
+		margin-right: 40px;
 	}
 
 	.inner {
-		padding-top: 4vw;
-		padding-left: 20px;
+		padding-top: 3vw;
+		padding-left: 15px;
+		padding-right: 15px;
+		width: max-content;
 	}
 
 	.route {
-		font-family: Cabin;
+		font-family: "Atkinson Hyperlegible";
 		font-size: 16px;
 		font-weight: 500;
-		padding-top: 15px;
+		padding-top: 7px;
+		padding-bottom: 7px;
 		padding-left: 1px;
 		cursor: pointer;
+		width: max-content;
+
+		color: #AAA;
 	}
 
 	input {
 		border-radius: 5px;
-		border: 2px black solid;
+		/*border: 1px white solid;*/
+		background-color: #38383d;
+		color: white;
 	}
 
 	.not-found {
 		padding-top: 15px;
 		color: #888;
-		font-family: Cabin;
+		font-family: Nunito;
+		font-size: 16px;
+		font-weight: 500;
 	}
 
 </style>

@@ -21,6 +21,7 @@ sqlc_generate:
 
 generate_docs:
 	go run main.go generate_docs
+	cd ./docs/docs-template && npm run build
 
 test:
 	go run main.go migrate_up -t| true #ignore exit 0

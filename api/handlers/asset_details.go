@@ -11,7 +11,11 @@ import (
 )
 
 /*
-Returns details of assets, given the path to the asset
+Response: JSON
+
+URL Parameters: path (String)
+
+Returns details of assets, given the path to the asset.
 */
 func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -40,12 +44,18 @@ func FetchAssetDetailsByURL(store *db.Store) http.HandlerFunc {
 }
 
 /*
-Returns details of assets, given the asset id
+Response: JSON
+
+URL Parameters: id (Integer)
+
+Returns details of assets, given the asset id. If it finds the asset,
+it returns JSON containing info about the asset. If it doesn't, it
+returns the error along with the error code.
 */
 func FetchAssetDetailsByID(store *db.Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
-		id, err := strconv.Atoi(chi.URLParam(r, "path"))
+		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
 			resp = map[string]interface{}{"error": "id is not a valid integer."}
 			utils.JSON(w, http.StatusBadRequest, resp)

@@ -18,14 +18,14 @@ import (
 
 var app = cli.NewApp()
 
-// Route - Handler Function Name
+// Method Route - Handler Function Name
 var routes map[string]string = map[string]string{
-	"/":                  "HelloWorld",
-	"/{AssetUrl}":        "GetAsset",
-	"/manage/url/{path}": "FetchAssetDetailsByURL",
-	"/manage/id/{path}":  "FetchAssetDetailsByID",
-	"/manage":            "CreateAsset",
-	"/testing":           "HelloWorld",
+	"GET /testing":           "Hello World",
+	"GET /{AssetUrl}":        "Get Asset",
+	"GET /manage/url/{path}": "Fetch Asset Details By URL",
+	"GET /manage/id/{id}":    "Fetch Asset Details By ID",
+	"POST /manage":           "Create Asset",
+	"GET /docs":              "Get Docs",
 }
 
 func main() {
