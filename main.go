@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/Tech-With-Tim/cdn/api"
-	"github.com/Tech-With-Tim/cdn/docs"
-	"github.com/Tech-With-Tim/cdn/server"
-
 	"log"
 
+	"github.com/Tech-With-Tim/cdn/api"
+	"github.com/Tech-With-Tim/cdn/api/handlers"
+	"github.com/Tech-With-Tim/cdn/server"
+	"github.com/Tech-With-Tim/cdn/docs"
 	"github.com/go-chi/chi/v5"
 
 	// _ "net/http/pprof"  // only in use when profiling
@@ -70,7 +70,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateUp(conf, "./db/migration/")
+				err = utils.MigrateUp(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -92,7 +92,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateDown(conf, "./db/migration/")
+				err = utils.MigrateDown(conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -118,7 +118,7 @@ func commands(config utils.Config) {
 				if err != nil {
 					return err
 				}
-				err = utils.MigrateSteps(c.Int("steps"), conf, "./db/migration/")
+				err = utils.MigrateSteps(c.Int("steps"), conf, "./models/migrations/")
 				if err != nil {
 					return err
 				}
@@ -164,7 +164,8 @@ func commands(config utils.Config) {
 				CdnRouter := chi.NewRouter()
 
 				//Add Routes to Routers Here
-				api.MainRouter(CdnRouter, s.Store, config)
+				services := handlers.NewServiceHandler(s.Store, *s.Cache)
+				api.MainRouter(CdnRouter, config, services)
 				//Mount Routers here
 				s.Router.Mount("/", CdnRouter)
 				// r.Mount("/debug/", middleware.Profiler()) // Only in use when profiling

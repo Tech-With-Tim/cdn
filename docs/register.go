@@ -39,7 +39,8 @@ func AddDocs(route, funcName string) error {
 	// Remove empty lines. Output - A multiline doc string
 	documentation := strings.Trim(strings.Join(cleanDocs[3:], "\n"), "\n")
 	documentation = strings.ReplaceAll(documentation, "\n\n", "<br>")
-	documentation = strings.ReplaceAll(documentation, "\n", "")
+	documentation = strings.ReplaceAll(documentation, "\n", " ")
+	documentation = strings.ReplaceAll(documentation, "  ", " ")
 
 	routeDocs := RouteInfo{
 		rawFunc,

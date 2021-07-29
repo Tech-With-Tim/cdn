@@ -5,7 +5,7 @@
 <div class="container">
 	
 	<table class="title-container"><tr style="width: 100%">
-		<td><img src="favicon.png" alt="TWT Logo" class="logo"></td>
+		<td><img src="assets/favicon.png" alt="TWT Logo" class="logo"></td>
 		<td style="width: 100%">
 			<div class="heading">
 				Tech With Tim <span class="subtitle">CDN Documentation</span>

@@ -29,16 +29,16 @@
 		{#if routeList.length != 0}
 			{#each routeList as route}
 				<table>
-					<tr>
+					<tr on:click={ScrollTo(route.Name)}>
 						<td style="display: flex; justify-content: center;">
-							<div class="route" on:click={ScrollTo(route.Name)}>
+							<div class="route">
 								{route.Name}
 							</div>
 						</td>
 						<td style="width: 100%" />
 						<td>
 							<!-- svelte-ignore a11y-missing-attribute -->
-							<img src="arrow.png" width=20>
+							<img src="assets/arrow.png" width=20>
 						</td>
 					</tr>
 				</table>
@@ -72,10 +72,13 @@
 		padding-top: 7px;
 		padding-bottom: 7px;
 		padding-left: 1px;
-		cursor: pointer;
 		width: max-content;
 
 		color: #AAA;
+	}
+
+	tr {
+		cursor: pointer;
 	}
 
 	input {

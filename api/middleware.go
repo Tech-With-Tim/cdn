@@ -2,12 +2,13 @@ package api
 
 import (
 	"context"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/golang-jwt/jwt"
 )
 
 const errorstring string = "The server could not verify that you are authorized to access the URL requested. " +

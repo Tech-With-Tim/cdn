@@ -2,10 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/utils"
-	"github.com/omeid/pgerror"
-	"golang.org/x/sync/errgroup"
 	"html"
 	"io/ioutil"
 	"log"
@@ -13,6 +9,11 @@ import (
 	"mime/multipart"
 	"net/http"
 	"strconv"
+
+	db "github.com/Tech-With-Tim/cdn/db/sqlc"
+	"github.com/Tech-With-Tim/cdn/utils"
+	"github.com/omeid/pgerror"
+	"golang.org/x/sync/errgroup"
 )
 
 /*
@@ -78,7 +79,7 @@ under the `data` parameter in the form data. If it succeeds,
 it returns a 201 Created Status. If it fails, the error is returned,
 along with the error code.
 */
-func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
+func (s *Service) CreateAsset(FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
 		fileData := make(chan []byte)
@@ -135,7 +136,7 @@ func CreateAsset(store *db.Store, FileSize int64) http.HandlerFunc {
 			urlPath = getUrlPath(html.EscapeString(r.FormValue("url_path")), fileExt)
 			//Storing asset in database
 			assetId, err = storeAsset(mimetype, fileName, <-fileData,
-				assetName, urlPath, userId, store, w, r)
+				assetName, urlPath, userId, s.Store, w, r)
 			if err != nil {
 				return err
 			}

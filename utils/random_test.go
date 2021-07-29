@@ -1,10 +1,11 @@
 package utils
 
 import (
-	"github.com/stretchr/testify/require"
 	"math/rand"
 	"sync"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestRandomInt(t *testing.T) {

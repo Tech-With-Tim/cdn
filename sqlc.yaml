@@ -3,7 +3,7 @@ packages:
   - name: "db"
     path: "./db/sqlc"
     queries: "./db/query/"
-    schema: "./db/migration/"
+    schema: "./models/migrations/"
     engine: "postgresql"
     emit_prepared_queries: false
     emit_interface: false
