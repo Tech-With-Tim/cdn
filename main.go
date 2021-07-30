@@ -130,13 +130,21 @@ func commands(config utils.Config) {
 			Usage: "Generate Documentation for the CDN",
 			Action: func(_ *cli.Context) error {
 
-				os.Chdir("./api/handlers")
+				err := os.Chdir("./api/handlers")
+
+				if err != nil {
+					log.Fatal(err)
+				}
 
 				for route, handler := range routes {
 					docs.AddDocs(route, handler)
 				}
 
-				docs.GenerateDocs()
+				err := docs.GenerateDocs()
+
+				if err != nil {
+					log.Fatal(err)
+				}
 
 				return nil
 			},

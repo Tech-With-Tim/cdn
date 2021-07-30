@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/Tech-With-Tim/cdn/utils"
 )
 
 /*
@@ -33,7 +35,8 @@ func GetDocs() http.HandlerFunc {
 
 		_, err = w.Write(data)
 		if err != nil {
-			log.Println(err.Error())
+			resp = map[string]interface{}{"error": "Something Unexpected Occurred."}
+			utils.JSON(w, http.StatusInternalServerError, resp)
 		}
 	}
 }

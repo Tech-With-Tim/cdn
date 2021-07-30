@@ -49,7 +49,7 @@ func AddDocs(route, funcName string) error {
 	}
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	routes = append(routes, routeDocs)
