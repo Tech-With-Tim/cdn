@@ -13,7 +13,10 @@ Response: JSON
 
 URL Parameters: None
 
-Returns documentation for the CDN routes.
+Returns documentation for the CDN routes. Each route has
+information regarding the response type, methods allowed,
+URL parameters, possible errors, and a brief description
+of the route.
 */
 func GetDocs() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -35,6 +38,7 @@ func GetDocs() http.HandlerFunc {
 	}
 }
 
+// Serve the docs page
 func ServeDocsPage() func(w http.ResponseWriter, r *http.Request) {
 
 	return func(w http.ResponseWriter, r *http.Request) {

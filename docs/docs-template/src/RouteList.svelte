@@ -24,10 +24,12 @@
 		let routeDiv = document.getElementById(route)
 		routeDiv.scrollIntoView({behavior: 'smooth'})
 
-		routeDiv.style.color = "#92bdfd"
+		window.location.href = "/#" + route
+
+		routeDiv.style.fontWeight = "bold"
 		sleep(500).then(
 			() => {
-				routeDiv.style.color = "#fff"
+				routeDiv.style.fontWeight = "normal"
 			}
 		)
 	}
@@ -40,7 +42,10 @@
 		{#if routeList.length != 0}
 			{#each routeList as route}
 				<table>
-					<tr on:click={ScrollTo(route.Name)}>
+					<tr
+						on:click={ScrollTo(route.Name)}
+					>
+
 						<td style="display: flex; justify-content: center;">
 							<span class="route">
 								{route.Name}
@@ -51,6 +56,7 @@
 							<!-- svelte-ignore a11y-missing-attribute -->
 							<img src="assets/arrow.png" width=20>
 						</td>
+
 					</tr>
 				</table>
 			{/each}
@@ -61,18 +67,23 @@
 </div>
 
 <style>
+
 	.container {
 		background-color: #28282d;
 		display: block;
 		height: 100%;
-		width: max-content;
+		position: fixed;
+
+		top: 0;
+		left: 0;
+		width: 23vw;
 	}
 
 	.inner {
 		padding-top: 3vw;
 		padding-left: 15px;
 		padding-right: 15px;
-		width: max-content;
+		width: 20vw;
 	}
 
 	.route {
@@ -82,7 +93,7 @@
 		padding-top: 7px;
 		padding-bottom: 7px;
 		padding-left: 1px;
-		width: max-content;
+		width: 15vw;
 
 		transition: 100ms all;
 
@@ -98,6 +109,7 @@
 		/*border: 1px white solid;*/
 		background-color: #38383d;
 		color: white;
+		width: 20vw;
 	}
 
 	input:focus {

@@ -1,5 +1,4 @@
 <script>
-	import { fade } from "svelte/transition";
 	import RouteList from "./RouteList.svelte";
 	import Docs from "./Docs.svelte";
 
@@ -20,19 +19,17 @@
 </script>
 
 <main>
-	<div transition:fade={{ duration: 1000 }}>
-		<table style="height: 100%;">
-			<tr style="height: 100%">
-				<td class="search">
-					<RouteList routes={routes} />
-				</td>
+	<table style="height: 100%;">
+		<tr style="height: 100%">
+			<td class="search">
+				<RouteList routes={routes} />
+			</td>
 
-				<td class="docs-container">
-					<Docs routes={routes}/>
-				</td>
-			</tr>
-		</table>
-	</div>
+			<td class="docs-container">
+				<Docs routes={routes}/>
+			</td>
+		</tr>
+	</table>
 </main>
 
 <style>
@@ -48,7 +45,7 @@
 		height: max-content;
 	}
 
-	table, tr, td, main, div {
+	table, tr, td, main {
 		height: 100% !important;
 		margin: -1px;
 		padding: 0;

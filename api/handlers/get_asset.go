@@ -16,8 +16,8 @@ Response: FileType | JSON
 URL Parameters: AssetURL (string)
 
 Return an asset, given the asset url. If the asset is not found,
-the error message is returned along with the error status code. If it is
-found, the asset is returned as per it's file type.
+a 404 error is returned. If it is found,
+the asset is returned as per it's file type.
 */
 func (s *Service) GetAsset() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

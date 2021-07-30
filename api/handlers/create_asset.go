@@ -76,8 +76,9 @@ URL Parameters: None
 
 Create Asset creates an asset with a given file, uploaded
 under the `data` parameter in the form data. If it succeeds,
-it returns a 201 Created Status. If it fails, the error is returned,
-along with the error code.
+it returns a 201 Created Status. If the file is too large, a
+413 error is raised. If the file is not provided, a 400
+error is raised.
 */
 func (s *Service) CreateAsset(FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

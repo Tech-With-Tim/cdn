@@ -15,7 +15,8 @@ Response: JSON
 
 URL Parameters: path (String)
 
-Returns details of assets, given the path to the asset.
+Returns details of assets, given the path to the asset. If
+the asset is not found, a 404 error is raised
 */
 func (s *Service) FetchAssetDetailsByURL() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -50,9 +51,10 @@ Response: JSON
 
 URL Parameters: id (Integer)
 
-Returns details of assets, given the asset id. If it finds the asset,
-it returns JSON containing info about the asset. If it doesn't, it
-returns the error along with the error code.
+Returns details of assets, given the asset ID. If it finds the asset,
+it returns JSON containing info about the asset. If the asset is not
+found, a 404 error is raised. If the ID provided is not an integer,
+a 400 error is raised.
 */
 func (s *Service) FetchAssetDetailsByID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

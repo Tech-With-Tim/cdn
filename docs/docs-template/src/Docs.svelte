@@ -28,9 +28,9 @@
 						>
 							<img
 								src="assets/link.png"
-								height="20px"
 								class="link"
 								alt="link"
+								id={route.Name.replace(/\s/g, "-") + "-img"}
 							>
 						</a>
 					</td>
@@ -69,16 +69,16 @@
 
 <style>
 	
-	.route-link {
+	.route-link img {
 		text-decoration: none;
-		height: 25px;
-		width: 25px;
+		height: 20px;
+		width: 20px;
 	}
 
-	.route-link:hover {
+	.route-link img:hover {
 		display: block;
-		height: 25px;
-		width: 25px;
+		height: 20px;
+		width: 20px;
 	}
 
 	.title-container {
