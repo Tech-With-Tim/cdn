@@ -26,8 +26,8 @@ func GetDocs() http.HandlerFunc {
 		file, err := os.Open("./docs/docs.json")
 
 		if err != nil {
-			w.WriteHeader(500)
-			w.Write([]byte("Error while reading docs"))
+			resp := map[string]interface{}{"error": "Something Unexpected Occurred."}
+			utils.JSON(w, http.StatusInternalServerError, resp)
 		}
 
 		defer file.Close()
