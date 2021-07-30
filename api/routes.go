@@ -26,7 +26,7 @@ func MainRouter(r *chi.Mux, config utils.Config, s handlers.Handler) {
 
 		r.Get("/{AssetUrl}", s.GetAsset())
 		r.Get("/manage/url/{path}", s.FetchAssetDetailsByURL())
-		r.Get("/manage/id/{path}", s.FetchAssetDetailsByID())
+		r.Get("/manage/id/{id}", s.FetchAssetDetailsByID())
 	})
 
 	//Private Routes

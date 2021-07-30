@@ -9,10 +9,6 @@
 	).then(
 		(data) => {
 			routes = data
-
-			for (var r in routes) {
-				routes[r].Description = routes[r].Description
-			}
 		}
 	)
 
