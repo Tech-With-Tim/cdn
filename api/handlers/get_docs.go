@@ -35,7 +35,7 @@ func GetDocs() http.HandlerFunc {
 
 		_, err = w.Write(data)
 		if err != nil {
-			resp = map[string]interface{}{"error": "Something Unexpected Occurred."}
+			resp := map[string]interface{}{"error": "Something Unexpected Occurred."}
 			utils.JSON(w, http.StatusInternalServerError, resp)
 		}
 	}

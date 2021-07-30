@@ -137,14 +137,14 @@ func commands(config utils.Config) {
 				}
 
 				for route, handler := range routes {
-					docs.AddDocs(route, handler)
+					err := docs.AddDocs(route, handler)
+
+					if err != nil {
+						log.Fatal(err)
+					}
 				}
 
-				err := docs.GenerateDocs()
-
-				if err != nil {
-					log.Fatal(err)
-				}
+				docs.GenerateDocs()
 
 				return nil
 			},
