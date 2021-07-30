@@ -128,7 +128,3 @@ go test ./... -v
 
 ## ✍️ Authors
 See the list of [contributors](https://github.com/Tech-With-Tim/cdn/contributors) who participated in this project.
-
-
-## ✍️ Authors
-See the list of [contributors](https://github.com/Tech-With-Tim/cdn/contributors) who participated in this project.
