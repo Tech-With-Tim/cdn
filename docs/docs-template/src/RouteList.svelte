@@ -15,10 +15,21 @@
 		}
 	}
 
+	function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+
 	function ScrollTo(route) {
 		route = route.replace(/\s/g, "-")
 		let routeDiv = document.getElementById(route)
 		routeDiv.scrollIntoView({behavior: 'smooth'})
+
+		routeDiv.style.color = "#92bdfd"
+		sleep(500).then(
+			() => {
+				routeDiv.style.color = "#fff"
+			}
+		)
 	}
 
 </script>
@@ -31,9 +42,9 @@
 				<table>
 					<tr on:click={ScrollTo(route.Name)}>
 						<td style="display: flex; justify-content: center;">
-							<div class="route">
+							<span class="route">
 								{route.Name}
-							</div>
+							</span>
 						</td>
 						<td style="width: 100%" />
 						<td>
@@ -55,7 +66,6 @@
 		display: block;
 		height: 100%;
 		width: max-content;
-		margin-right: 40px;
 	}
 
 	.inner {
@@ -74,6 +84,8 @@
 		padding-left: 1px;
 		width: max-content;
 
+		transition: 100ms all;
+
 		color: #AAA;
 	}
 
@@ -86,6 +98,10 @@
 		/*border: 1px white solid;*/
 		background-color: #38383d;
 		color: white;
+	}
+
+	input:focus {
+		outline: none;
 	}
 
 	.not-found {

@@ -5,20 +5,47 @@
 <div class="container">
 	
 	<table class="title-container"><tr style="width: 100%">
+		
 		<td><img src="assets/favicon.png" alt="TWT Logo" class="logo"></td>
+		
 		<td style="width: 100%">
 			<div class="heading">
 				Tech With Tim <span class="subtitle">CDN Documentation</span>
 			</div>
 		</td>
+	
 	</tr></table>
 
 	<div class="docs-container">
 		{#each routes as route}
-			<div style="margin-bottom: 1.5vw">
-				<div class="route-heading" id={route.Name.replace(/\s/g, "-")}>
-					{ route.Name } <span>{ route.Route }</span>
-				</div>
+			<div style="margin-bottom: 1.5vw;">
+
+				<table style="width: 100%;"><tr style="width: 100%;">
+					<td>
+						<a
+							href={"#" + route.Name.replace(/\s/g, "-")}
+							class="route-link"
+						>
+							<img
+								src="assets/link.png"
+								height="20px"
+								class="link"
+								alt="link"
+							>
+						</a>
+					</td>
+
+					<td style="width: 100%;">
+						<div
+							class="route-heading"
+							id={route.Name.replace(/\s/g, "-")}
+						>
+							{ route.Name } <span>{ route.Route }</span>
+						</div>
+					</td>
+
+				</tr></table>
+
 				<div class="desc">
 					{#each route.Description.split("<br>") as descriptionLine}
 						<div>
@@ -42,6 +69,18 @@
 
 <style>
 	
+	.route-link {
+		text-decoration: none;
+		height: 25px;
+		width: 25px;
+	}
+
+	.route-link:hover {
+		display: block;
+		height: 25px;
+		width: 25px;
+	}
+
 	.title-container {
 		display: inline;
 		width: 100%;
@@ -60,12 +99,13 @@
 		margin-bottom: 10px;
 		margin-right: 0px;
 
+		width: 100%;
+
 		color: white;
 		border-bottom: 1px white solid;
 
 		padding-top: 4px;
 		padding-bottom: 4px;
-		border-radius: 3px;
 	}
 
 	span {
@@ -99,6 +139,8 @@
 
 		padding-top: 5px;
 		margin-bottom: 30px;
+
+		margin-left: 25px;
 	}
 
 	.heading {
