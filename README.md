@@ -102,7 +102,7 @@ Returns `Hello, World` when called.
 */
 func GetAllAssets(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(statusCode)
-  json.NewEncoder(w).Encode("Hello, World")
+    json.NewEncoder(w).Encode("Hello, World")
 }
 ```
 
