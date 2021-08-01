@@ -5,8 +5,8 @@ import (
 
 	"github.com/Tech-With-Tim/cdn/api"
 	"github.com/Tech-With-Tim/cdn/api/handlers"
-	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/Tech-With-Tim/cdn/docs"
+	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
 
 	// _ "net/http/pprof"  // only in use when profiling
@@ -17,16 +17,6 @@ import (
 )
 
 var app = cli.NewApp()
-
-// Method Route - Handler Function Name
-var routes map[string]string = map[string]string{
-	"GET /testing":           "Hello World",
-	"GET /{AssetUrl}":        "Get Asset",
-	"GET /manage/url/{path}": "Fetch Asset Details By URL",
-	"GET /manage/id/{id}":    "Fetch Asset Details By ID",
-	"POST /manage":           "Create Asset",
-	"GET /docs":              "Get Docs",
-}
 
 func main() {
 	//Export Env Variables If exist
@@ -136,7 +126,7 @@ func commands(config utils.Config) {
 					log.Fatal(err)
 				}
 
-				for route, handler := range routes {
+				for route, handler := range api.Routes {
 					err := docs.AddDocs(route, handler)
 
 					if err != nil {

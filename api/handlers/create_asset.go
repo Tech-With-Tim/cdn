@@ -74,6 +74,11 @@ Response: JSON
 
 URL Parameters: None
 
+Request Body : [
+	{name: "name", type: "string", description: "the name of the asset"},
+]
+// we can basically create a list like this which would be in the docs.json file
+then we can render this list in a table with svelte
 Create Asset creates an asset with a given file, uploaded
 under the `data` parameter in the form data. If it succeeds,
 it returns a 201 Created Status. If the file is too large, a

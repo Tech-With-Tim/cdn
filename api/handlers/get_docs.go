@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"html"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -42,11 +43,12 @@ func GetDocs() http.HandlerFunc {
 }
 
 // Serve the docs page
-func ServeDocsPage() func(w http.ResponseWriter, r *http.Request) {
+func ServeDocsPage() http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
-	    
+
 		path := r.URL.Path
+		path = html.EscapeString(path)
 		path = filepath.Join("./docs/docs-template/public", path)
 		_, err := os.Stat(path)
 
@@ -56,11 +58,11 @@ func ServeDocsPage() func(w http.ResponseWriter, r *http.Request) {
 			return
 
 		} else if err != nil {
-			
+
 			log.Println(err.Error())
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
-		
+
 		}
 
 		http.FileServer(http.Dir("./docs/docs-template/public")).ServeHTTP(w, r)
