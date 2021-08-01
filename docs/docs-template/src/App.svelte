@@ -4,7 +4,7 @@
 
 	let routes = []
 
-	fetch("/docs/data").then(
+	fetch("/docs/docs.json").then(
 		(resp) => resp.json()
 	).then(
 		(data) => {

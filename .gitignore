@@ -26,8 +26,7 @@ profile.tar.gz
 *.py
 
 # docs
-docs/docs.json
-*/docs.json
+docs.json
 
 docs/docs-template/node_modules/
 docs/docs-template/public/build/

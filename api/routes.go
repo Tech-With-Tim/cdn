@@ -19,14 +19,8 @@ func MainRouter(r *chi.Mux, config utils.Config, s handlers.Handler) {
 	// 	60)
 
 	r.Group(func(r chi.Router) {
-		r.Get("/docs/data", handlers.GetDocs())
-
-		r.Get("/{StaticFile}", handlers.ServeDocsPage())
-		r.Get("/build/{StaticFile}", handlers.ServeDocsPage())
-		r.Get("/assets/{StaticFile}", handlers.ServeDocsPage())
-		r.Get("/", handlers.ServeDocsPage())
-		r.Get("/docs", func(w http.ResponseWriter, r *http.Request) {
-			http.Redirect(w, r, "/", http.StatusPermanentRedirect)
+		r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+			http.Redirect(w, r, "/docs", http.StatusPermanentRedirect)
 		})
 		r.Get("/{AssetUrl}", s.GetAsset())
 		r.Get("/manage/url/{path}", s.FetchAssetDetailsByURL())
@@ -47,5 +41,4 @@ var Routes map[string]string = map[string]string{
 	"GET /manage/url/{path}": "Fetch Asset Details By URL",
 	"GET /manage/id/{id}":    "Fetch Asset Details By ID",
 	"POST /manage":           "Create Asset",
-	"GET /docs/data":         "Get Docs",
 }

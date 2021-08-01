@@ -62,7 +62,7 @@ func GenerateDocs() {
 
 	jsonData, _ := json.MarshalIndent(routes, "", "   ")
 
-	err := ioutil.WriteFile("../../docs/docs.json", []byte(jsonData), 0644)
+	err := ioutil.WriteFile("../../docs/docs-template/public/docs.json", []byte(jsonData), 0644)
 
 	if err != nil {
 		log.Fatal(err)
