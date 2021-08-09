@@ -29,6 +29,7 @@ profile.tar.gz
 docs.json
 
 docs/docs-template/node_modules/
+docs/docs-template/package-lock.json
 docs/docs-template/public/build/
 
 *.DS_Store
