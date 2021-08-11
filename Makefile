@@ -20,8 +20,11 @@ sqlc_generate:
 	docker run --rm -v $(ROOT_DIR):/src -w /src kjconroy/sqlc generate
 
 generate_docs:
-	go run main.go generate_docs
-	cd ./docs/docs-template && npm install && npm run build
+	@echo "Generating docs to docs.json"
+	@go run main.go generate_docs
+	@cd ./docs/docs-template; [ -d node_modules ] && echo "Skipping install of packages" || npm install
+	@echo "Bulding docs template"
+	@cd ./docs/docs-template && npm run build
 
 test:
 	@go run main.go migrate_up -t | true
