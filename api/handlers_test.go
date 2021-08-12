@@ -98,9 +98,9 @@ func TestDocs(t *testing.T) {
 
 	GenerateDocs(t)
 
-	req, _ := http.NewRequest("GET", "/docs", nil)
+	req, _ := http.NewRequest("GET", "/docs/", nil)
 	response := executeRequest(req)
-	checkResponseCode(t, http.StatusUnauthorized, response.Code)
+	checkResponseCode(t, http.StatusOK, response.Code)
 }
 
 func TestCreateAsset(t *testing.T) {
