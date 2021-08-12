@@ -98,7 +98,7 @@ func TestDocs(t *testing.T) {
 
 	GenerateDocs(t)
 
-	req, _ := http.NewRequest("GET", "/docs/docs.json", nil)
+	req, _ := http.NewRequest("GET", "/docs", nil)
 	response := executeRequest(req)
 	checkResponseCode(t, http.StatusUnauthorized, response.Code)
 }
