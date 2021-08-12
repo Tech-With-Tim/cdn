@@ -214,7 +214,7 @@ func TestCreateAsset(t *testing.T) {
 }
 
 func GenerateDocs(t *testing.T) {
-	err := os.Chdir("./api/handlers")
+	err := os.Chdir("./handlers")
 
 	if err != nil {
 		t.Fatal(err)
