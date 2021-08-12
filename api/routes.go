@@ -40,5 +40,5 @@ var Routes map[string]string = map[string]string{
 	"GET /{AssetUrl}":        "Get Asset",
 	"GET /manage/url/{path}": "Fetch Asset Details By URL",
 	"GET /manage/id/{id}":    "Fetch Asset Details By ID",
-	"POST /manage":           "Create Asset",
+	"POST /manage": "Create Asset",
 }

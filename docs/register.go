@@ -6,15 +6,30 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
 var routes []RouteInfo = []RouteInfo{}
 
+type Docs struct {
+	Content RouteInfo `yaml:"Content"`
+}
+
 type RouteInfo struct {
+	Response      string `yaml:"Response"`
+	URLParameters string `yaml:"URL Parameters"`
+
 	Name  string
 	Route string
 
-	Description string
+	RequestBody []struct {
+		Name string `yaml:"name"`
+		Type string `yaml:"type"`
+		Desc string `yaml:"Desc"`
+	} `yaml:"Request Body"`
+
+	Description string `yaml:"Description"`
 }
 
 // Extract comments to form docs
@@ -29,30 +44,26 @@ func AddDocs(route, funcName string) error {
 		return err
 	}
 
-	cleanDocs := []string{}
+	rawDocs := "Content:\n"
 
-	// Remove whitespace at the start and end of each line
-	for _, i := range strings.Split(string(output), "\n") {
-		cleanDocs = append(cleanDocs, strings.TrimSpace(i))
+	for num, line := range strings.Split(string(output), "\n") {
+		if num >= 3 {
+			rawDocs += line + "\n"
+		}
 	}
 
-	// Remove empty lines. Output - A multiline doc string
-	documentation := strings.Trim(strings.Join(cleanDocs[3:], "\n"), "\n")
-	documentation = strings.ReplaceAll(documentation, "\n\n", "<br>")
-	documentation = strings.ReplaceAll(documentation, "\n", " ")
-	documentation = strings.ReplaceAll(documentation, "  ", " ")
+	source := []byte(rawDocs)
 
-	routeDocs := RouteInfo{
-		rawFunc,
-		route,
-		documentation,
-	}
-
+	var config Docs
+	err = yaml.Unmarshal(source, &config)
 	if err != nil {
-		return err
+		panic(err)
 	}
 
-	routes = append(routes, routeDocs)
+	config.Content.Name = rawFunc
+	config.Content.Route = route
+
+	routes = append(routes, config.Content)
 
 	return nil
 }

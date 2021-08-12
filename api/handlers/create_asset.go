@@ -74,16 +74,20 @@ Response: JSON
 
 URL Parameters: None
 
-Request Body : [
-	{name: "name", type: "string", description: "the name of the asset"},
-]
-// we can basically create a list like this which would be in the docs.json file
-then we can render this list in a table with svelte
-Create Asset creates an asset with a given file, uploaded
-under the `data` parameter in the form data. If it succeeds,
-it returns a 201 Created Status. If the file is too large, a
-413 error is raised. If the file is not provided, a 400
-error is raised.
+Request Body:
+  - name: name
+    type: String
+    Desc: "Name under which to store the asset in the CDN."
+  - name: url_path
+    type: String
+    Desc: "The URL Path under which to store the asset in the CDN.
+    If none is provided, a random path is selected."
+
+Description: "Create Asset creates an asset with a given file,
+uploaded under the `data` parameter as a form file.
+If it succeeds, it returns a 201 Created Status. If the FileSize
+is too large, a 413 error is raised. If the file is not provided,
+a 400 error is raised."
 */
 func (s *Service) CreateAsset(FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

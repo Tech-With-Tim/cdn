@@ -47,19 +47,59 @@
 				</tr></table>
 
 				<div class="desc">
-					{#each route.Description.split("<br>") as descriptionLine}
-						<div>
-							<span class="key">
-								{descriptionLine.split(":")[0]}
-							</span>
-							
-							{#if descriptionLine.split(":")[1]}
-								<span class="value">
-									:{descriptionLine.split(":")[1]}
-								</span>
-							{/if}
-						</div>
-					{/each}
+					<div
+					style="padding-bottom: 10px; color: white; font-size: 16px"
+					>
+						{route.Description}
+					</div>
+
+					<span class="key">
+						URL Parameters:
+					</span>
+					<span class="value">
+						{route.URLParameters}
+					</span>
+
+					<br>
+
+					<span class="key">
+						Response:
+					</span>
+					<span class="value">
+						{route.Response}
+					</span>
+
+					<br>
+
+					<span class="key" style="margin-top: 30px;">
+						Request Body:
+					</span>
+
+					<br>
+
+					{#if route.RequestBody}
+					<table class="req-body">
+						<tr>
+							<th style="text-align: left; min-width: 150px;">
+								Field
+							</th>
+							<th style="text-align: left; min-width: 150px;">
+								Type
+							</th>
+							<th style="text-align: left;">
+								Description
+							</th>
+						</tr>
+						{#each route.RequestBody as reqbody}
+							<tr>
+								<td>{reqbody.Name}</td>
+								<td>{reqbody.Type}</td>
+								<td>{reqbody.Desc}</td>
+							</tr>
+						{/each}
+					</table>
+					{/if}
+
 				</div>
 			</div>
 		{/each}
@@ -68,6 +108,29 @@
 </div>
 
 <style>
+
+	.req-body {
+		width: 100%;
+		border-radius: 5px;
+		padding: 10px;
+		margin: 10px;
+		margin-top: 10px;
+		margin-left: 0px;
+		background-color: rgba(0, 0, 0, 0.3);
+
+		font-size: 16px;
+
+		border-collapse: collapse;
+	}
+
+	.req-body tr:nth-child(even) {
+		background-color: rgba(255, 255, 255, 0.1);
+	}
+
+	.req-body td, th {
+		border: 2px solid rgba(0, 0, 0, 0.5);
+		padding: 8px;
+	}
 	
 	.route-link img {
 		text-decoration: none;
@@ -111,15 +174,15 @@
 	span {
 		color: #999999;
 		font-size: 16px;
-		font-weight: normal;
 		font-family: "Secular One";
 	}
 
 	.key {
 		color: white;
 		font-size: 16px;
-		font-weight: normal;
+		font-weight: 600;
 		font-family: Nunito;
+		margin-bottom: 5px;
 	}
 
 	.value {

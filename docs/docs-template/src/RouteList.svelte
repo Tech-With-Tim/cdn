@@ -15,23 +15,14 @@
 		}
 	}
 
-	function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-   }
-
 	function ScrollTo(route) {
 		route = route.replace(/\s/g, "-")
-		let routeDiv = document.getElementById(route)
-		routeDiv.scrollIntoView({behavior: 'smooth'})
+		document
+			.getElementById(route)
+			.scrollIntoView({behavior: 'smooth'})
 
-		window.location.href = "/#" + route
-
-		routeDiv.style.fontWeight = "bold"
-		sleep(500).then(
-			() => {
-				routeDiv.style.fontWeight = "normal"
-			}
-		)
+		let obj = { Title: "Tech With Tim CDN", Url: "#" + route };
+		history.pushState(obj, obj.Title, obj.Url);
 	}
 
 </script>

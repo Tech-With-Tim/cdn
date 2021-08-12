@@ -10,8 +10,8 @@ Response: String
 
 URL Parameters: None
 
-Returns `Hello, World!` when called. This route is for
-testing purposes only.
+Description: "Returns `Hello, World!` when called. This route is for
+testing purposes only."
 */
 func HelloWorld() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
