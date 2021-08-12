@@ -75,12 +75,12 @@ Response: JSON
 URL Parameters: None
 
 Request Body:
-  - name: name
-    type: String
-    Desc: "Name under which to store the asset in the CDN."
-  - name: url_path
-    type: String
-    Desc: "The URL Path under which to store the asset in the CDN.
+  - Name: name
+    Type: String
+    Description: "Name under which to store the asset in the CDN."
+  - Name: url_path
+    Type: String
+    Description: "The URL Path under which to store the asset in the CDN.
     If none is provided, a random path is selected."
 
 Description: "Create Asset creates an asset with a given file,

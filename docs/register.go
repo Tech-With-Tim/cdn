@@ -24,9 +24,9 @@ type RouteInfo struct {
 	Route string
 
 	RequestBody []struct {
-		Name string `yaml:"name"`
-		Type string `yaml:"type"`
-		Desc string `yaml:"Desc"`
+		Name string `yaml:"Name"`
+		Type string `yaml:"Type"`
+		Desc string `yaml:"Description"`
 	} `yaml:"Request Body"`
 
 	Description string `yaml:"Description"`
