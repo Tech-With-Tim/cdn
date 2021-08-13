@@ -32,7 +32,7 @@ func TestMain(m *testing.M) {
 	MainRouter(CdnRouter, conf, services)
 
 	workDir, _ := os.Getwd()
-	filesDir := http.Dir(filepath.Join(workDir, "docs/docs-template/public"))
+	filesDir := http.Dir(filepath.Join(workDir, "../docs/docs-template/public"))
 	server.FileServer(s.Router, "/docs", filesDir)
 
 	//Mount Routers here
