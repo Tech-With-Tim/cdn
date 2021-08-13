@@ -10,13 +10,11 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"strconv"
 	"testing"
 	"time"
 
 	db "github.com/Tech-With-Tim/cdn/db/sqlc"
-	"github.com/Tech-With-Tim/cdn/docs"
 
 	"github.com/Tech-With-Tim/cdn/utils"
 	"github.com/golang-jwt/jwt"
@@ -92,15 +90,6 @@ func TestHelloWorld(t *testing.T) {
 	req.Header.Set("Authorization", token)
 	response = executeRequest(req)
 	checkResponseCode(t, http.StatusUnauthorized, response.Code)
-}
-
-func TestDocs(t *testing.T) {
-
-	GenerateDocs(t)
-
-	req, _ := http.NewRequest("GET", "/docs/", nil)
-	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
 }
 
 func TestCreateAsset(t *testing.T) {
@@ -210,29 +199,5 @@ func TestCreateAsset(t *testing.T) {
 		require.NoError(t, err)
 		fileRes = executeRequest(fileReq)
 		checkResponseCode(t, http.StatusBadRequest, fileRes.Code)
-	}
-}
-
-func GenerateDocs(t *testing.T) {
-	err := os.Chdir("./handlers")
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for route, handler := range Routes {
-		err := docs.AddDocs(route, handler)
-
-		if err != nil {
-			t.Fatal(err)
-		}
-	}
-
-	docs.GenerateDocs()
-
-	_, err = os.Stat("../../docs/docs-template/public/docs.json")
-
-	if os.IsNotExist(err) {
-		t.Fatal(err)
 	}
 }

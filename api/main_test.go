@@ -3,9 +3,7 @@ package api
 import (
 	"context"
 	"log"
-	"net/http"
 	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/Tech-With-Tim/cdn/api/handlers"
@@ -30,10 +28,6 @@ func TestMain(m *testing.M) {
 	services := handlers.NewServiceHandler(s.Store, *s.Cache)
 
 	MainRouter(CdnRouter, conf, services)
-
-	workDir, _ := os.Getwd()
-	filesDir := http.Dir(filepath.Join(workDir, "../docs/docs-template/public"))
-	server.FileServer(s.Router, "/docs", filesDir)
 
 	//Mount Routers here
 	s.Router.Mount("/", CdnRouter)
