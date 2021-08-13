@@ -24,3 +24,11 @@ profile.tar.gz
 # Just for manual testing
 # *.rb
 *.py
+
+# docs
+docs.json
+
+docs/docs-template/node_modules/
+docs/docs-template/public/build/
+
+*.DS_Store

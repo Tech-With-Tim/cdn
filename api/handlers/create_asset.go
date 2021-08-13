@@ -16,8 +16,10 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// getUrlPath generates a random url path if url path is not provided
-// in the request.
+/*
+getUrlPath generates a random url path if url path is not provided
+in the request.
+*/
 func getUrlPath(url string, fileExt []string) string {
 	if url == "" {
 		if len(fileExt) != 0 {
@@ -67,7 +69,26 @@ func storeAsset(mimetype string,
 	return
 }
 
-//CreateAsset Creates asset from file upload and stores its in the database
+/*
+Response: JSON
+
+URL Parameters: None
+
+Request Body:
+  - Name: name
+    Type: String
+    Description: "Name under which to store the asset in the CDN."
+  - Name: url_path
+    Type: String
+    Description: "The URL Path under which to store the asset in the CDN.
+    If none is provided, a random path is selected."
+
+Description: "Create Asset creates an asset with a given file,
+uploaded under the `data` parameter as a form file.
+If it succeeds, it returns a 201 Created Status. If the FileSize
+is too large, a 413 error is raised. If the file is not provided,
+a 400 error is raised."
+*/
 func (s *Service) CreateAsset(FileSize int64) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}

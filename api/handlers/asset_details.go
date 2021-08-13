@@ -10,6 +10,14 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+/*
+Response: JSON
+
+URL Parameters: path (String)
+
+Description: "Returns details of assets, given the path to the asset. If
+the asset is not found, a 404 error is raised"
+*/
 func (s *Service) FetchAssetDetailsByURL() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
@@ -38,10 +46,20 @@ func (s *Service) FetchAssetDetailsByURL() http.HandlerFunc {
 	}
 }
 
+/*
+Response: JSON
+
+URL Parameters: id (Integer)
+
+Description: "Returns details of assets, given the asset ID.
+If it finds the asset, it returns JSON containing info about
+the asset. If the asset is not found, a 404 error is raised.
+If the ID provided is not an integer, a 400 error is raised."
+*/
 func (s *Service) FetchAssetDetailsByID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}
-		id, err := strconv.Atoi(chi.URLParam(r, "path"))
+		id, err := strconv.Atoi(chi.URLParam(r, "id"))
 		if err != nil {
 			resp = map[string]interface{}{"error": "id is not a valid integer."}
 			utils.JSON(w, http.StatusBadRequest, resp)

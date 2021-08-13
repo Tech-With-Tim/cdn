@@ -2,11 +2,15 @@ package main
 
 import (
 	"log"
+	"net/http"
+	"path/filepath"
 
 	"github.com/Tech-With-Tim/cdn/api"
 	"github.com/Tech-With-Tim/cdn/api/handlers"
+	"github.com/Tech-With-Tim/cdn/docs"
 	"github.com/Tech-With-Tim/cdn/server"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 
 	// _ "net/http/pprof"  // only in use when profiling
 	"os"
@@ -115,6 +119,30 @@ func commands(config utils.Config) {
 			},
 		},
 		{
+			Name:  "generate_docs",
+			Usage: "Generate Documentation for the CDN",
+			Action: func(_ *cli.Context) error {
+
+				err := os.Chdir("./api/handlers")
+
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				for route, handler := range api.Routes {
+					err := docs.AddDocs(route, handler)
+
+					if err != nil {
+						log.Fatal(err)
+					}
+				}
+
+				docs.GenerateDocs()
+
+				return nil
+			},
+		},
+		{
 			Name:  "runserver",
 			Usage: "Run Api Server",
 			Flags: []cli.Flag{
@@ -139,9 +167,14 @@ func commands(config utils.Config) {
 				//Add Routes to Routers Here
 				services := handlers.NewServiceHandler(s.Store, *s.Cache)
 				api.MainRouter(CdnRouter, config, services)
+
+				workDir, _ := os.Getwd()
+				filesDir := http.Dir(filepath.Join(workDir, "docs/docs-template/public"))
+				server.FileServer(s.Router, "/docs", filesDir)
+
 				//Mount Routers here
 				s.Router.Mount("/", CdnRouter)
-				// r.Mount("/debug/", middleware.Profiler()) // Only in use when profiling
+				s.Router.Mount("/debug/", middleware.Profiler()) // Only in use when profiling
 				//Store Router in Struct
 				err := s.RunServer(c.String("host"), c.Int("port"))
 				return err

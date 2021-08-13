@@ -48,57 +48,83 @@ MAX_FILE_SIZE=30
 
 ### Running
 
-- To create postgres container `make postgres`
-- To create db `make createdb`
-- To drop db `make dropdb`
+- To create the Postgres container - `make postgres`
+- To create the db - `make createdb`
+- To drop db - `make dropdb`
 
-#### run `go mod tidy` to install packages
-#### cli commands 
+#### Run `go mod tidy` to install packages
+#### CLI commands 
 ```
 go run main.go migrate_up
 go run main.go dropdb
 go run main.go migrate_steps --steps int
+go run main.go generate_docs
 go run main.go runserver --host localhost --port port (localhost, 5000 are default)
 ```
 
-#### to run migrations on the test database 
+#### To run migrations on the test database
 ```
 go run main.go migrate_up -t
 go run main.go dropdb -t
 go run main.go migrate_steps -t --steps int
 ```
 
-### Use the make file its your best friend 🛠
-#### Make commands
-##### If you are on windows please use git bash or wsl also you would have to install make for windows
-##### to install make for windows run `winget install GnuWin32.Make`
+### Use the make file, its your best friend 🛠
+#### Make commands -
+If you are on windows please use Git Bash or WSL. You also have to install Make for Windows
+To install Make for Windows run `winget install GnuWin32.Make`
 
 ```shell
-make postgres #creates docker container for postgres12
-# reads env variables from app.env
-make createdb #creates the db in the postgres container
-make dropdb #drops the db
-make migrate_up #migrates to the latest schema
-make sqlc_generate #generates sqlc code if you write queries
-make test # tests your code and shows coverage
-#its a big output make sure to read it all
+make postgres # Creates docker container for postgres12
+# Reads env variables from app.env
+make createdb # Creates the db in the postgres container
+make dropdb # Drops the db
+make migrate_up # Migrates to the latest schema
+make sqlc_generate # Generates sqlc code if you write queries
+make generate_docs # Generates documentation
+make test # Tests your code and shows coverage
+# Its a big output make sure to read it all
 ```
 
 ## 🐳 Running with Docker
 
-Start the cdn `docker-compose up`
+Start the cdn with `docker-compose up`
+
+## 🗒️Docs
+
+While adding new endpoints, you need add docs in the form of comments. For example:
+```go
+/*
+Response: String
+
+URL Parameters: None
+
+Request Body:
+	- Name: username
+	- Type: String
+	- Description: "Username to register so and so . . ."
+
+Description: "Returns `Hello, World` when called."
+*/
+func GetAllAssets(w http.ResponseWriter, r *http.Request) {
+    w.WriteHeader(statusCode)
+    json.NewEncoder(w).Encode("Hello, World")
+}
+```
+
+And you will need to update the routes variable in [routes.go](/api/routes.go)
 
 ## 🚨 Tests
-To test the cdn we can use two methods
+There are two methods to test the cdn -
 ```sh
 make test
 ```
-If you don't have make installed
+If you don't have make installed -
 ```sh
 go run main.go migrate_up -t
 go test ./... -v 
 ```
-**When you contribute, you need to add tests on the features you add.**
+**When you contribute, you need to add tests for the features you add.**
 
 ## ⛏️ Built Using
 
@@ -108,4 +134,3 @@ go test ./... -v
 
 ## ✍️ Authors
 See the list of [contributors](https://github.com/Tech-With-Tim/cdn/contributors) who participated in this project.
-
