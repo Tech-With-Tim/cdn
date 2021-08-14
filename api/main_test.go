@@ -28,6 +28,7 @@ func TestMain(m *testing.M) {
 	services := handlers.NewServiceHandler(s.Store, *s.Cache)
 
 	MainRouter(CdnRouter, conf, services)
+
 	//Mount Routers here
 	s.Router.Mount("/", CdnRouter)
 	err = createTestUser()

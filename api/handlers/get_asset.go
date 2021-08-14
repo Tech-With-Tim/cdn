@@ -10,6 +10,15 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+/*
+Response: FileType | JSON
+
+URL Parameters: AssetURL (string)
+
+Description: "Return an asset, given the asset url. If the asset
+is not found, a 404 error is returned. If it is found, the
+asset is returned as per it's file type."
+*/
 func (s *Service) GetAsset() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var resp map[string]interface{}

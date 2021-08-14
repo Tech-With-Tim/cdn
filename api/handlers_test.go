@@ -81,7 +81,7 @@ func TestHelloWorld(t *testing.T) {
 	req.Header.Add("Authorization", token)
 	response = executeRequest(req)
 	checkResponseCode(t, http.StatusOK, response.Code)
-	if body := response.Body.String(); body != "Hello World" {
+	if body := response.Body.String(); body != "Hello, World!" {
 		t.Errorf("Expected Hello World. Got %s", body)
 	}
 	token, err = createAuthToken(time.Now().Unix() - 60)
