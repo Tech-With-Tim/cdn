@@ -75,6 +75,10 @@
 						Request Body:
 					</span>
 
+					{#if !route.RequestBody}
+						<span class="value">None</span>
+					{/if}
+
 					<br>
 
 					{#if route.RequestBody}
